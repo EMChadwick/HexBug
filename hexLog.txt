@@ -168,3 +168,6 @@ Shutting down...
 2022-06-21 00:05:46.319777   generating ideas to share with Hexadextrous#4159
 2022-06-21 00:06:33.518250   rolling 90d10 for Hexadextrous#4159 in HexTest Server
 2022-06-21 00:06:33.817258   Hexadextrous#4159 raised error: Too many dice in HexTest Server
+2022-06-21 00:09:13.994370   rolling d20+d12+4+4+4+4+4+4+3+4+3+3+3+4+3+4+4+4+4+5+6+6+6+7+7+7+7 for Hexadextrous#4159 in HexTest Server
+2022-06-21 00:09:14.375886   Hexadextrous#4159 raised error: Dice Equation too long in HexTest Server
+2022-06-21 00:15:25.106902   Now online as HexBug#8874. Connected to 3 servers

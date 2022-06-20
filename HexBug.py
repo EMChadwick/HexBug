@@ -124,17 +124,22 @@ async def on_message(message):
  
         #look at how you massacred my boy.
         elif (command == (prefix + "kill")):
-           log(auth + " initiated kill command \nShutting down...")
-           await message.channel.send('Going offline')
-           quit()
+            if auth == "Hexadextrous#4159": 
+                log(auth + " initiated kill command \nShutting down...")
+                await message.channel.send('Going offline')
+                quit()
+            else:
+                await message.channel.send("Access Denied: {0} command for executive users only".format(command))
             
          #show how many users there are  
         elif(command == (prefix + "users")):
-            
-            await message.channel.send('There are ' + str(message.guild.member_count) + ' users in this server')
-            await message.channel.send('I am connected to:')
-            for s in client.guilds:
-                await message.channel.send(str(s))
+            if auth == "Hexadextrous#4159": 
+                await message.channel.send('There are ' + str(message.guild.member_count) + ' users in this server'.format(command))
+                await message.channel.send('I am connected to:')
+                for s in client.guilds:
+                    await message.channel.send(str(s))
+            else:
+                await message.channel.send("Access Denied: {0} command for executive users only")
 
         elif(command == (prefix + "servers")):
             await message.channel.send('I am connected to:')

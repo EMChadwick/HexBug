@@ -104,3 +104,67 @@ Shutting down...
 2022-06-13 15:03:12.996433   Now online as HexBug#8874. Connected to 2 servers
 2022-06-13 15:11:39.470753   Now online as HexBug#8874. Connected to 2 servers
 2022-06-13 15:12:41.520915   Now online as HexBug#8874. Connected to 2 servers
+2022-06-20 12:05:07.031714   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 16:05:46.015921   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 16:08:17.821137   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 16:10:28.955757   saying hi to Hexadextrous#4159 in HexTest Server
+2022-06-20 16:10:37.256851   saying hi to Hexadextrous#4159 in HexTest Server
+2022-06-20 16:13:20.288187   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 16:19:52.121786   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 16:20:01.058395   Flipping a coin for user Hexadextrous#4159
+2022-06-20 16:20:02.546111   Tails
+2022-06-20 16:23:58.942330   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 16:24:12.058992   Flipping a coin for Hexadextrous#4159 in HexTest Server
+2022-06-20 16:24:13.487764   Heads
+2022-06-20 16:24:25.914852   rolling 2d20+3d6 for Hexadextrous#4159 in HexTest Server
+2022-06-20 16:24:26.398059   Result: D20: 17 D20: 7 D6: 4 D6: 6 D6: 5 
+2022-06-20 16:36:36.222508   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 16:36:55.507986   rolling 1000d20 for Hexadextrous#4159 in HexTest Server
+2022-06-20 16:38:59.533441   rolling 20+20+202+2+2+2+2+3+2+2+2+2+2+2+2+2+2+2+2+3 for Hexadextrous#4159 in HexTest Server
+2022-06-20 16:39:00.059457   Hexadextrous#4159 tried to roll too many dice in HexTest Server
+2022-06-20 16:58:19.845483   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 16:58:28.486252   rolling d20 for Hexadextrous#4159 in HexTest Server
+2022-06-20 16:58:28.496255   Result: D20: 5 
+2022-06-20 16:58:28.740822   Result: D20: 5 
+2022-06-20 16:58:38.299470   rolling 50d20 for Hexadextrous#4159 in HexTest Server
+2022-06-20 16:59:16.236513   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 16:59:23.578767   rolling 50d20 for Hexadextrous#4159 in HexTest Server
+2022-06-20 16:59:23.836079   Hexadextrous#4159 raised error: Too many dice in HexTest Server
+2022-06-20 16:59:37.345530   rolling i'dnokv for Hexadextrous#4159 in HexTest Server
+2022-06-20 17:01:00.202905   rolling d20 for Hexadextrous#4159 in HexTest Server
+2022-06-20 17:01:00.239802   Result: D20: 11 
+2022-06-20 17:01:00.635307   Result: D20: 11 
+2022-06-20 17:01:57.265120   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 17:02:04.364470   rolling iecheviotkeck for Hexadextrous#4159 in HexTest Server
+2022-06-20 17:02:28.834746   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 17:02:36.464158   rolling iiefbkw for Hexadextrous#4159 in HexTest Server
+2022-06-20 17:02:36.751392   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-20 17:03:31.808537   rolling 1000000d20 for Hexadextrous#4159 in HexTest Server
+2022-06-20 17:03:32.153366   Hexadextrous#4159 raised error: Too many dice in HexTest Server
+2022-06-20 17:12:04.118905   rolling ebwkaifbe+fnenakak for Hexadextrous#4159 in HexTest Server
+2022-06-20 17:12:04.457757   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-20 17:12:44.307494   rolling d20+5d20+10d12+5+2+5+6+6+7 for Hexadextrous#4159 in HexTest Server
+2022-06-20 17:12:44.317466   Result: D20: 16 D20: 4 D20: 5 D20: 19 D20: 16 D20: 1 D12: 2 D12: 10 D12: 3 D12: 2 D12: 2 D12: 12 D12: 1 D12: 2 D12: 7 D12: 5 +7 +7 +7 +7 +7 +7 
+2022-06-20 17:12:44.734325   Result: D20: 16 D20: 4 D20: 5 D20: 19 D20: 16 D20: 1 D12: 2 D12: 10 D12: 3 D12: 2 D12: 2 D12: 12 D12: 1 D12: 2 D12: 7 D12: 5 +7 +7 +7 +7 +7 +7 
+2022-06-20 17:55:15.489482   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 17:55:47.414480   rolling rbwnwj for Hexadextrous#4159 in HexTest Server
+2022-06-20 17:55:47.745111   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-20 17:55:57.919961   rolling 100000000d20 for Hexadextrous#4159 in HexTest Server
+2022-06-20 17:55:58.170812   Hexadextrous#4159 raised error: Too many dice in HexTest Server
+2022-06-20 17:56:18.022195   rolling 4+4+4+4+4+4+4+4+4+4+4+4+4+4+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+4+4+4+4+4+5+5+5+5+5 for Hexadextrous#4159 in HexTest Server
+2022-06-20 17:56:18.865176   Hexadextrous#4159 raised error: Dice Equation too long in HexTest Server
+2022-06-20 18:20:32.893075   Flipping a coin for Hexadextrous#4159 in HexTest Server
+2022-06-20 18:20:34.328430   Tails
+2022-06-20 18:20:53.031495   Flipping a coin for Hexadextrous#4159 in HexTest Server
+2022-06-20 18:20:54.482107   Heads
+2022-06-20 23:59:51.267293   Now online as HexBug#8874. Connected to 3 servers
+2022-06-20 23:59:51.269949   rolling d20 for Hexadextrous#4159 in HexTest Server
+2022-06-20 23:59:51.575811   Result: D20: 9 
+2022-06-21 00:00:24.901444   rolling 3d6+6d8 for Hexadextrous#4159 in HexTest Server
+2022-06-21 00:00:25.183227   Result: D6: 4 D6: 2 D6: 1 D8: 1 D8: 6 D8: 5 D8: 1 D8: 3 D8: 2 
+2022-06-21 00:05:11.098634   saying hi to Hexadextrous#4159 in HexTest Server
+2022-06-21 00:05:30.718830   Fetching words of affirmation for Hexadextrous#4159
+2022-06-21 00:05:39.554087   generating ideas to share with Hexadextrous#4159
+2022-06-21 00:05:46.319777   generating ideas to share with Hexadextrous#4159
+2022-06-21 00:06:33.518250   rolling 90d10 for Hexadextrous#4159 in HexTest Server
+2022-06-21 00:06:33.817258   Hexadextrous#4159 raised error: Too many dice in HexTest Server

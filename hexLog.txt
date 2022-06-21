@@ -171,3 +171,7 @@ Shutting down...
 2022-06-21 00:09:13.994370   rolling d20+d12+4+4+4+4+4+4+3+4+3+3+3+4+3+4+4+4+4+5+6+6+6+7+7+7+7 for Hexadextrous#4159 in HexTest Server
 2022-06-21 00:09:14.375886   Hexadextrous#4159 raised error: Dice Equation too long in HexTest Server
 2022-06-21 00:15:25.106902   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 00:18:16.186433   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 00:18:53.887382   rolling 3d20+2d8 for Hexadextrous#4159 in HexTest Server
+2022-06-21 00:18:54.216519   Result: D20: 6 D20: 17 D20: 6 D8: 6 D8: 4 
+2022-06-21 09:06:24.599343   Now online as HexBug#8874. Connected to 3 servers

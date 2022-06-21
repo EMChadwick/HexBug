@@ -29,7 +29,17 @@ prefix = "~"
 client =  Bot(description='', command_prefix=prefix, pm_help = False)
 
 #write logs to a file, create one if it doesn't exist
-
+command_library = {
+        "help":["list_commands", False],
+        "roll": ["Process_dice",False],
+        "flip": ["flip",False],
+        "hi": ["greet",False],
+        "invent": ["invent",False],
+        "affirmation":["affirmation", False],
+        "users": ["count_users",True],
+        "servers": ["list_servers",True],
+        "kill": ["kill_bot",True]
+        }
 
 
 def roll(die, num=1):
@@ -40,7 +50,35 @@ def roll(die, num=1):
         results["dieRolls"].append([chuck,die])
     return results
 
-def process_dice(equation):
+
+# Hello world!
+def greet(message, args):
+    log("saying hi to " + str(message.author) + " in " + str(message.guild))
+    await message.channel.send( "Hi, I'm HexBug!")
+
+# no shame in asking for help.
+def list_commands(message, args):
+    cmd_list = ''
+    for cmd in command_library.keys():
+        cmd_list = cmd_list + '~{0}'.format(cmd)
+
+# WHERE'S RACHEL? 
+def flip(message, args):
+    await message.channel.send('flipping a coin...')
+    log("Flipping a coin for {0} in {1}".format(str(message.author), str(message.guild)))
+    flip = roll(2)
+    time.sleep(1.2)
+    if flip["total"] == 1:
+        await message.channel.send('Heads!')
+        log('Heads')
+    else:
+        await message.channel.send('Tails!')
+        log('Tails')
+                
+# Process the dice equation            
+def process_dice(message, args):
+    equation = ' '.join(args[1:]).lower().replace(" ", "").split("+")
+    log("rolling {0} for {1} in {2}".format('+'.join(equation),str(message.author),str(message.guild)))
     total = 0
     rolls = []
     nums = []
@@ -75,7 +113,53 @@ def process_dice(equation):
             error = 'Dice Equation too long'
         else:
             error = 'Invalid dice equation, please try again.'
-    return(total, rollSummary, error)
+    if len(error) > 0:
+        await message.channel.send(error)
+        log('{0} raised error: {1} in {2}'.format(str(message.author),error,str(message.guild)))
+    else:
+        await message.channel.send('your result is {0}\n{1}'.format(total,rollSummary))
+        log("Result: {0}".format(rollSummary))
+
+
+# come up with a random invention: an x for a y
+def invent(message, args):
+    log("generating ideas to share with " + str(message.author))
+    request = req.get('http://itsthisforthat.com/api.php?json')
+    if (request.status_code != 200):
+        await message.channel.send('Ideas machine broke.')
+    else:
+        await message.channel.send("What about " + request.json()["this"] + " for " + request.json()['that'])
+
+# Like a fortune cookie you know will be good.
+def affirmation(message, args):
+    log("Fetching words of affirmation for " + str(message.author))
+    request = req.get('https://www.affirmations.dev/')
+    if (request.status_code != 200):
+        await message.channel.send("Affirmation machine broke.")
+    else:
+        await message.channel.send(request.json()["affirmation"])
+
+
+# ADMIN: look at how they massacred my boy.
+def kill(message, args):
+    log(str(message.author) + " initiated kill command \nShutting down...")
+    await message.channel.send('Going offline')
+    quit()
+
+
+#ADMIN: show user count on current server
+def count_users(message, args):
+    await message.channel.send('There are ' + str(message.guild.member_count) + ' users in this server')
+
+# ADMIN: list all servers HexBug is connected to.
+def list_servers(message, args):
+    await message.channel.send('I am connected to:')
+    for s in client.guilds:
+        await message.channel.send(str(s))
+        
+        
+        
+        
 
 #tell the command line HexBug is online!
 @client.event
@@ -83,93 +167,23 @@ async def on_ready():
     print(f'{client.user} has connected to Discord!')
     log("Now online as " + str(client.user) + ". Connected to " + str(len(client.guilds)) + " servers")
         
-#TODO: make hexbug learn colours, and scream the thomas the tank engine intro in tescos 
 
-#handle events
+#handle message events
 @client.event
 async def on_message(message):
     if(message.content[:1] == prefix):
         #get the message, split it into the command and its arguments for later use. 
         args = message.content.split(" ")
         command = args[0]
-        auth = str(message.author)
-        authL = auth[:-5]
-        #say hi
-        if(command == (prefix + "hi")):
-            log("saying hi to " + auth + " in " + str(message.guild))
-            await message.channel.send( "Hi, I'm HexBug!")
+        key_word = command.replace(prefix,'')
+        authL = str(message.author)[:-5]
         
-        #list commands      
-        elif(command == (prefix + "help")):
-            await message.channel.send( "Here's what I can do:\n~hi: I'll say hi back!\n~roll n[die]+n[die]....: I'll roll the dice for you!\n~invent: I'll come up with an invention\n~flip: I'll flip a coin for you.")
-         
-         
-         #say an affirming statement         
-        elif(command == (prefix + "affirmation")):
-            log("Fetching words of affirmation for " + auth)
-            request = req.get('https://www.affirmations.dev/')
-            if (request.status_code != 200):
-                await message.channel.send("Affirmation machine broke.")
-            else:
-                await message.channel.send(request.json()["affirmation"])
-        
-        #come up with a random invention: an x for a y
-        elif (command == (prefix + "invent")):
-            log("generating ideas to share with " + auth)
-            request = req.get('http://itsthisforthat.com/api.php?json')
-            if (request.status_code != 200):
-                await message.channel.send('Ideas machine broke.')
-            else:
-                await message.channel.send("What about " + request.json()["this"] + " for " + request.json()['that'])
- 
-        #look at how you massacred my boy.
-        elif (command == (prefix + "kill")):
-            if auth == "Hexadextrous#4159": 
-                log(auth + " initiated kill command \nShutting down...")
-                await message.channel.send('Going offline')
-                quit()
-            else:
+        #Check the command exists in the dictionary, and that the user is me if it's an admin command, then run it.
+        if key_word in command_library.keys():
+            if command_library[key_word][1] == True and str(message.author) != "Hexadextrous#4159":
                 await message.channel.send("Access Denied: {0} command for executive users only".format(command))
-            
-         #show how many users there are  
-        elif(command == (prefix + "users")):
-            if auth == "Hexadextrous#4159": 
-                await message.channel.send('There are ' + str(message.guild.member_count) + ' users in this server'.format(command))
-                await message.channel.send('I am connected to:')
-                for s in client.guilds:
-                    await message.channel.send(str(s))
             else:
-                await message.channel.send("Access Denied: {0} command for executive users only")
-
-        elif(command == (prefix + "servers")):
-            await message.channel.send('I am connected to:')
-            for s in client.guilds:
-                await message.channel.send(str(s))
-        
-        #flips a coin.
-        elif(command == prefix + "flip"):
-            await message.channel.send('flipping a coin...')
-            log("Flipping a coin for {0} in {1}".format(auth, str(message.guild)))
-            flip = roll(2)
-            time.sleep(1.2)
-            if flip["total"] == 1:
-                await message.channel.send('Heads!')
-                log('Heads')
-            else:
-                await message.channel.send('Tails!')
-                log('Tails')
-            
-        #roll the dice. State dice before fixed numbers.
-        elif(command == prefix + "roll"):
-            equation = ' '.join(args[1:]).lower().replace(" ", "").split("+")
-            log("rolling {0} for {1} in {2}".format('+'.join(equation),auth,str(message.guild)))
-            tot, summ, err = process_dice(equation)
-            if len(err) > 0:
-                await message.channel.send(err)
-                log('{0} raised error: {1} in {2}'.format(auth,err,str(message.guild)))
-            else:
-                await message.channel.send('your result is {0}\n{1}'.format(tot,summ))
-                log("Result: {0}".format(summ))
+                locals()[command_library[key_word][0]](message, args)     
         else:
             await message.channel.send('Command '+ command + ' not found. Try running ~help')
             

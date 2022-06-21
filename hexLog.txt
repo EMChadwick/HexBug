@@ -175,3 +175,25 @@ Shutting down...
 2022-06-21 00:18:53.887382   rolling 3d20+2d8 for Hexadextrous#4159 in HexTest Server
 2022-06-21 00:18:54.216519   Result: D20: 6 D20: 17 D20: 6 D8: 6 D8: 4 
 2022-06-21 09:06:24.599343   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 15:40:16.466858   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 15:41:49.522283   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 15:46:28.769151   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 15:48:02.454233   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 15:48:22.482171   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 15:49:21.751722   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 16:03:01.256924   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 16:05:18.222083   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 16:05:23.085760   rolling d20 for Hexadextrous#4159 in HexTest Server
+2022-06-21 16:06:53.938155   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 16:07:00.322079   rolling d20 for Hexadextrous#4159 in HexTest Server
+2022-06-21 16:07:55.538762   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 16:08:16.254732   rolling d20 for Hexadextrous#4159 in HexTest Server
+2022-06-21 16:08:16.256753   Result: D20: 4 
+2022-06-21 16:09:23.092236   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 16:09:46.419046   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 16:09:52.526526   rolling d20 for Hexadextrous#4159 in HexTest Server
+2022-06-21 16:09:52.850661   Result: D20: 7 
+2022-06-21 16:11:17.599483   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 16:12:31.195160   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 16:13:02.933124   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 16:13:57.898115   Now online as HexBug#8874. Connected to 3 servers

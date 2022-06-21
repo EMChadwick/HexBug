@@ -31,7 +31,7 @@ client =  Bot(description='', command_prefix=prefix, pm_help = False)
 #write logs to a file, create one if it doesn't exist
 command_library = {
         "help":["list_commands", False],
-        "roll": ["Process_dice",False],
+        "roll": ["process_dice",False],
         "flip": ["flip",False],
         "hi": ["greet",False],
         "invent": ["invent",False],
@@ -52,18 +52,21 @@ def roll(die, num=1):
 
 
 # Hello world!
-def greet(message, args):
+async def greet(message, args):
     log("saying hi to " + str(message.author) + " in " + str(message.guild))
     await message.channel.send( "Hi, I'm HexBug!")
 
 # no shame in asking for help.
-def list_commands(message, args):
-    cmd_list = ''
+async def list_commands(message, args):
+    cmd_list = 'Available commands:\n'
     for cmd in command_library.keys():
-        cmd_list = cmd_list + '~{0}'.format(cmd)
+        # only show non-admin commands
+        if command_library[cmd][1] == False:
+            cmd_list = cmd_list + '~{0}\n'.format(cmd)
+    await message.channel.send(cmd_list)
 
 # WHERE'S RACHEL? 
-def flip(message, args):
+async def flip(message, args):
     await message.channel.send('flipping a coin...')
     log("Flipping a coin for {0} in {1}".format(str(message.author), str(message.guild)))
     flip = roll(2)
@@ -76,7 +79,7 @@ def flip(message, args):
         log('Tails')
                 
 # Process the dice equation            
-def process_dice(message, args):
+async def process_dice(message, args):
     equation = ' '.join(args[1:]).lower().replace(" ", "").split("+")
     log("rolling {0} for {1} in {2}".format('+'.join(equation),str(message.author),str(message.guild)))
     total = 0
@@ -122,7 +125,7 @@ def process_dice(message, args):
 
 
 # come up with a random invention: an x for a y
-def invent(message, args):
+async def invent(message, args):
     log("generating ideas to share with " + str(message.author))
     request = req.get('http://itsthisforthat.com/api.php?json')
     if (request.status_code != 200):
@@ -131,7 +134,7 @@ def invent(message, args):
         await message.channel.send("What about " + request.json()["this"] + " for " + request.json()['that'])
 
 # Like a fortune cookie you know will be good.
-def affirmation(message, args):
+async def affirmation(message, args):
     log("Fetching words of affirmation for " + str(message.author))
     request = req.get('https://www.affirmations.dev/')
     if (request.status_code != 200):
@@ -141,18 +144,18 @@ def affirmation(message, args):
 
 
 # ADMIN: look at how they massacred my boy.
-def kill(message, args):
+async def kill(message, args):
     log(str(message.author) + " initiated kill command \nShutting down...")
     await message.channel.send('Going offline')
     quit()
 
 
 #ADMIN: show user count on current server
-def count_users(message, args):
+async def count_users(message, args):
     await message.channel.send('There are ' + str(message.guild.member_count) + ' users in this server')
 
 # ADMIN: list all servers HexBug is connected to.
-def list_servers(message, args):
+async def list_servers(message, args):
     await message.channel.send('I am connected to:')
     for s in client.guilds:
         await message.channel.send(str(s))
@@ -183,7 +186,8 @@ async def on_message(message):
             if command_library[key_word][1] == True and str(message.author) != "Hexadextrous#4159":
                 await message.channel.send("Access Denied: {0} command for executive users only".format(command))
             else:
-                locals()[command_library[key_word][0]](message, args)     
+                execute = globals()[command_library[key_word][0]]
+                await execute(message, args)  
         else:
             await message.channel.send('Command '+ command + ' not found. Try running ~help')
             

@@ -197,3 +197,340 @@ Shutting down...
 2022-06-21 16:12:31.195160   Now online as HexBug#8874. Connected to 3 servers
 2022-06-21 16:13:02.933124   Now online as HexBug#8874. Connected to 3 servers
 2022-06-21 16:13:57.898115   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 16:18:31.941847   saying hi to Hexadextrous#4159 in HexTest Server
+2022-06-21 16:18:37.434556   generating ideas to share with Hexadextrous#4159
+2022-06-21 16:18:51.834135   rolling 2d20+6d8 for Hexadextrous#4159 in HexTest Server
+2022-06-21 16:18:52.227656   Result: D20: 6 D20: 11 D8: 5 D8: 5 D8: 2 D8: 6 D8: 3 D8: 4 
+2022-06-21 16:21:18.624945   Fetching words of affirmation for Hexadextrous#4159
+2022-06-21 21:11:57.593604   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 21:15:47.263703   rolling d20+3d12+8d10 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:15:47.558323   Result: D20: 16 D12: 12 D12: 3 D12: 9 D10: 8 D10: 1 D10: 9 D10: 5 D10: 10 D10: 3 D10: 10 D10: 5 
+2022-06-21 21:16:40.431479   rolling 4d4 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:16:40.790760   Result: D4: 1 D4: 3 D4: 1 D4: 4 
+2022-06-21 21:17:17.375330   rolling 6d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:17:17.672136   Result: D6: 6 D6: 6 D6: 1 D6: 2 D6: 2 D6: 2 
+2022-06-21 21:27:49.315352   rolling 8d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:27:49.606267   Result: D6: 4 D6: 1 D6: 4 D6: 6 D6: 1 D6: 5 D6: 1 D6: 3 
+2022-06-21 21:28:10.031409   rolling 6d4+2d8 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:28:10.443632   Result: D4: 2 D4: 1 D4: 4 D4: 2 D4: 1 D4: 2 D8: 7 D8: 7 
+2022-06-21 21:28:30.491951   rolling 2d8+3d6+6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:28:30.830047   Result: D8: 2 D8: 2 D6: 4 D6: 4 D6: 6 +6 
+2022-06-21 21:28:41.961326   rolling 5+5 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:28:42.183111   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-21 21:30:08.615362   rolling 10000000d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:30:25.538250   rolling 1000d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:31:16.642216   rolling d6+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:31:16.949394   Hexadextrous#4159 raised error: Dice Equation too long in HexTest Server
+2022-06-21 21:31:24.054315   rolling 100d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:31:31.433303   rolling 50d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:31:35.825199   rolling 20d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:31:39.515083   rolling d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:31:39.774722   Result: D6: 6 
+2022-06-21 21:33:28.632484   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 21:33:35.581566   rolling 10000d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:33:35.589617   rolling 10000d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:33:35.879434   Hexadextrous#4159 raised error: Too many dice in HexTest Server
+2022-06-21 21:34:09.483861   rolling gioh4y959+eghn4ihn for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:34:09.794033   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-21 21:34:09.831930   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-21 21:34:15.544108   rolling dfirughu for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:34:15.547100   rolling dfirughu for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:34:15.770503   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-21 21:34:15.781473   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-21 21:35:30.652995   rolling eguh9w3 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:35:30.653992   rolling eguh9w3 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:35:30.924268   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-21 21:35:30.984108   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-21 21:37:30.007791   rolling 10000d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:37:30.032726   rolling 10000d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:37:30.283055   Hexadextrous#4159 raised error: Too many dice in HexTest Server
+2022-06-21 21:39:02.604433   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 21:39:08.397470   rolling ugbhgh for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:39:08.399464   rolling ugbhgh for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:39:08.604915   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-21 21:39:08.661763   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-21 21:43:02.345222   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 21:43:13.834271   rolling 100000d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:43:13.844282   rolling 100000d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:43:15.895221   Hexadextrous#4159 raised error: Too many dice in HexTest Server
+2022-06-21 21:43:21.662483   rolling h4h4 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:43:21.670472   rolling h4h4 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:43:21.882799   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-21 21:43:22.100429   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-21 21:43:54.927448   rolling 4d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:43:54.931438   rolling 4d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:43:55.553965   Result: D6: 1 D6: 3 D6: 1 D6: 4 
+2022-06-21 21:43:55.581890   Result: D6: 2 D6: 5 D6: 4 D6: 4 
+2022-06-21 21:44:10.206548   rolling d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:44:10.409528   Result: D6: 3 
+2022-06-21 21:45:17.923470   Now online as HexBug#8874. Connected to 3 servers
+2022-06-21 21:45:26.090626   rolling 4848890d6 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:45:26.409741   Hexadextrous#4159 raised error: Too many dice in HexTest Server
+2022-06-21 21:45:40.295006   rolling d6+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:45:40.627693   Hexadextrous#4159 raised error: Dice Equation too long in HexTest Server
+2022-06-21 21:45:57.081095   rolling d6+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5+5dh45y5 for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:45:57.375826   Hexadextrous#4159 raised error: Dice Equation too long in HexTest Server
+2022-06-21 21:46:19.414444   rolling rbhrhh4h for Hexadextrous#4159 in HexTest Server
+2022-06-21 21:46:19.834938   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-23 08:40:38.931828   Now online as HexBug#8874. Connected to 3 servers
+2022-06-23 18:42:15.795078   rolling d20+3 for DragenmanX#9308 in Tales from the yawning portal
+2022-06-23 18:42:16.336512   Result: D20: 9 +3 
+2022-06-23 18:42:55.375773   rolling d20+2 for Lord of Rats#8729 in Tales from the yawning portal
+2022-06-23 18:42:55.719790   Result: D20: 17 +2 
+2022-06-23 18:44:15.730127   rolling d20+3 for VampireNirvana#2354 in Tales from the yawning portal
+2022-06-23 18:44:16.076656   Result: D20: 7 +3 
+2022-06-23 18:48:03.901334   rolling 4d6 for Lord of Rats#8729 in Tales from the yawning portal
+2022-06-23 18:48:04.315199   Result: D6: 2 D6: 5 D6: 2 D6: 5 
+2022-06-23 18:48:20.041347   rolling 4d6 for Lord of Rats#8729 in Tales from the yawning portal
+2022-06-23 18:48:20.414936   Result: D6: 5 D6: 4 D6: 2 D6: 5 
+2022-06-23 18:48:33.934876   rolling 4d6 for Lord of Rats#8729 in Tales from the yawning portal
+2022-06-23 18:48:34.187722   Result: D6: 6 D6: 4 D6: 1 D6: 2 
+2022-06-23 18:48:48.689485   rolling 4d6 for Lord of Rats#8729 in Tales from the yawning portal
+2022-06-23 18:48:48.945176   Result: D6: 6 D6: 1 D6: 5 D6: 6 
+2022-06-23 18:49:04.039120   rolling 4d6 for Lord of Rats#8729 in Tales from the yawning portal
+2022-06-23 18:49:04.453691   Result: D6: 2 D6: 3 D6: 1 D6: 3 
+2022-06-23 18:49:16.760431   rolling 4d6 for Lord of Rats#8729 in Tales from the yawning portal
+2022-06-23 18:49:17.053384   Result: D6: 6 D6: 5 D6: 5 D6: 5 
+2022-06-24 09:11:30.584799   Now online as HexBug#8874. Connected to 3 servers
+2022-06-24 10:52:19.119087   Now online as HexBug#8874. Connected to 3 servers
+2022-06-24 10:57:20.836223   Now online as HexBug#8874. Connected to 3 servers
+2022-06-25 15:59:43.351677   Now online as HexBug#8874. Connected to 3 servers
+2022-06-25 21:22:44.236606   rolling 2d8+4 for Hexadextrous#4159 in HexTest Server
+2022-06-25 21:22:44.722310   Result: D8: 4 D8: 3 +4 
+2022-06-25 21:24:30.164455   rolling 2d8+4 for Hexadextrous#4159 in HexTest Server
+2022-06-25 21:24:30.457670   Result: D8: 2 D8: 7 +4 
+2022-06-25 21:24:31.516871   rolling 2d8+4 for Hexadextrous#4159 in HexTest Server
+2022-06-25 21:24:31.739758   Result: D8: 8 D8: 2 +4 
+2022-06-25 21:27:41.780262   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-25 21:27:42.177202   Result: D6: 3 D6: 5 
+2022-06-25 21:27:48.855786   rolling d26 for Hexadextrous#4159 in HexTest Server
+2022-06-25 21:27:49.086171   Hexadextrous#4159 raised error: Invalid dice equation, please try again. in HexTest Server
+2022-06-25 21:27:52.203997   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-25 21:27:52.425420   Result: D6: 1 D6: 4 
+2022-06-25 21:28:00.892650   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-25 21:28:01.103087   Result: D6: 5 D6: 1 
+2022-06-25 21:39:42.111195   rolling 3d4 for Hexadextrous#4159 in HexTest Server
+2022-06-25 21:39:42.508675   Result: D4: 4 D4: 4 D4: 3 
+2022-06-25 22:01:40.792798   rolling 6d6 for Hexadextrous#4159 in HexTest Server
+2022-06-25 22:01:41.291664   Result: D6: 3 D6: 5 D6: 2 D6: 1 D6: 2 D6: 1 
+2022-06-25 22:08:04.188217   rolling 6d6 for Hexadextrous#4159 in HexTest Server
+2022-06-25 22:08:04.476064   Result: D6: 3 D6: 3 D6: 6 D6: 6 D6: 3 D6: 4 
+2022-06-26 00:03:37.601638   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 00:03:38.260477   Result: D6: 4 D6: 1 
+2022-06-26 00:09:15.042675   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 00:09:15.419666   Result: D6: 3 D6: 5 
+2022-06-26 00:09:18.737081   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 00:09:18.955921   Result: D6: 6 D6: 1 
+2022-06-26 00:09:21.614038   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 00:09:21.858005   Result: D6: 3 D6: 4 
+2022-06-26 00:36:11.625784   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 00:36:11.938092   Result: D6: 4 D6: 2 
+2022-06-26 00:36:16.968169   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 00:36:17.176609   Result: D6: 5 D6: 6 
+2022-06-26 00:43:55.728533   rolling 7d8 for Hexadextrous#4159 in HexTest Server
+2022-06-26 00:43:56.041109   Result: D8: 8 D8: 5 D8: 6 D8: 7 D8: 5 D8: 3 D8: 5 
+2022-06-26 00:44:05.210014   rolling 7d8 for Hexadextrous#4159 in HexTest Server
+2022-06-26 00:44:05.464037   Result: D8: 8 D8: 4 D8: 4 D8: 1 D8: 3 D8: 5 D8: 8 
+2022-06-26 01:43:44.351277   Now online as HexBug#8874. Connected to 3 servers
+2022-06-26 01:58:19.365639   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 01:58:19.935410   Result: D6: 2 D6: 4 
+2022-06-26 01:58:22.717630   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 01:58:22.945037   Result: D6: 4 D6: 2 
+2022-06-26 01:58:25.727407   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 01:58:25.945915   Result: D6: 4 D6: 4 
+2022-06-26 02:17:09.829571   rolling 3d6+6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 02:17:10.201648   Result: D6: 3 D6: 3 D6: 2 +6 
+2022-06-26 02:17:19.981110   rolling 3d6+6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 02:17:20.243147   Result: D6: 2 D6: 5 D6: 5 +6 
+2022-06-26 16:48:38.470302   Now online as HexBug#8874. Connected to 3 servers
+2022-06-26 18:09:19.505494   rolling 5d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 18:09:19.840111   Result: D6: 4 D6: 3 D6: 6 D6: 5 D6: 5 
+2022-06-26 18:33:55.812910   rolling 5d8+10 for Hexadextrous#4159 in HexTest Server
+2022-06-26 18:33:56.242844   Result: D8: 3 D8: 8 D8: 5 D8: 8 D8: 3 +10 
+2022-06-26 18:56:09.140121   rolling 3d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 18:56:09.550967   Result: D6: 1 D6: 6 D6: 1 
+2022-06-26 18:56:19.191132   rolling 3d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 18:56:19.487160   Result: D6: 4 D6: 3 D6: 6 
+2022-06-26 19:05:10.303929   rolling 2d8+2 for Hexadextrous#4159 in HexTest Server
+2022-06-26 19:05:10.677910   Result: D8: 6 D8: 3 +2 
+2022-06-26 19:05:15.907433   rolling 2d8+2 for Hexadextrous#4159 in HexTest Server
+2022-06-26 19:05:16.210292   Result: D8: 8 D8: 3 +2 
+2022-06-26 19:05:20.276448   rolling 2d8+2 for Hexadextrous#4159 in HexTest Server
+2022-06-26 19:05:20.578401   Result: D8: 8 D8: 2 +2 
+2022-06-26 19:09:08.747182   rolling d6+1 for Hexadextrous#4159 in HexTest Server
+2022-06-26 19:09:09.214803   Result: D6: 3 +1 
+2022-06-26 22:21:37.534291   rolling 5d8+5 for Hexadextrous#4159 in HexTest Server
+2022-06-26 22:21:38.059283   Result: D8: 7 D8: 5 D8: 1 D8: 4 D8: 1 +5 
+2022-06-26 22:27:29.779356   rolling 5d8 for Hexadextrous#4159 in HexTest Server
+2022-06-26 22:27:30.145538   Result: D8: 8 D8: 1 D8: 5 D8: 8 D8: 4 
+2022-06-26 22:52:49.807794   rolling 2d6 for Hexadextrous#4159 in HexTest Server
+2022-06-26 22:52:50.138145   Result: D6: 3 D6: 3 
+2022-06-26 22:54:13.651452   rolling 5d8 for Hexadextrous#4159 in HexTest Server
+2022-06-26 22:54:14.151182   Result: D8: 2 D8: 4 D8: 7 D8: 8 D8: 8 
+2022-06-26 22:54:21.795002   rolling 5d8 for Hexadextrous#4159 in HexTest Server
+2022-06-26 22:54:22.034109   Result: D8: 2 D8: 6 D8: 8 D8: 4 D8: 3 
+2022-06-26 23:01:49.452544   rolling 3d8+3 for Hexadextrous#4159 in HexTest Server
+2022-06-26 23:01:49.789127   Result: D8: 6 D8: 1 D8: 4 +3 
+2022-06-26 23:21:42.480123   rolling 5d8+5 for Hexadextrous#4159 in HexTest Server
+2022-06-26 23:21:42.847077   Result: D8: 4 D8: 2 D8: 3 D8: 4 D8: 2 +5 
+2022-06-26 23:21:59.118646   rolling 5d8+5 for Hexadextrous#4159 in HexTest Server
+2022-06-26 23:21:59.449258   Result: D8: 6 D8: 4 D8: 5 D8: 2 D8: 3 +5 
+2022-06-27 09:33:06.162557   Now online as HexBug#8874. Connected to 3 servers
+2022-06-27 12:41:18.854464   Now online as HexBug#8874. Connected to 3 servers
+2022-06-27 15:16:26.710471   Now online as HexBug#8874. Connected to 3 servers
+2022-06-28 00:39:57.478816   Now online as HexBug#8874. Connected to 3 servers
+2022-06-28 08:59:54.765827   Now online as HexBug#8874. Connected to 3 servers
+2022-06-29 08:55:44.962625   Now online as HexBug#8874. Connected to 3 servers
+2022-06-30 08:55:17.067711   Now online as HexBug#8874. Connected to 3 servers
+2022-07-01 00:40:16.894803   Now online as HexBug#8874. Connected to 3 servers
+2022-07-01 18:39:16.057062   Now online as HexBug#8874. Connected to 3 servers
+2022-07-01 18:39:26.449217   rolling d20+2 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 18:39:26.726958   Result: D20: 15 +2 
+2022-07-01 19:12:08.216172   rolling d20+3 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 19:12:08.558964   Result: D20: 20 +3 
+2022-07-01 19:57:17.012326   rolling d20+1 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 19:57:17.371335   Result: D20: 7 +1 
+2022-07-01 19:57:22.961556   rolling d20+1 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 19:57:23.683206   Result: D20: 11 +1 
+2022-07-01 20:53:23.625745   rolling d20+5 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 20:53:24.069422   Result: D20: 18 +5 
+2022-07-01 20:53:56.849007   rolling d4+5 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 20:53:57.178898   Result: D4: 4 +5 
+2022-07-01 21:30:14.560297   rolling d20+1 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 21:30:14.938483   Result: D20: 1 +1 
+2022-07-01 21:40:42.987184   rolling d20+3 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 21:40:43.714620   Result: D20: 14 +3 
+2022-07-01 21:45:11.851784   rolling d20+3 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 21:45:12.230071   Result: D20: 15 +3 
+2022-07-01 21:46:02.654760   rolling d20+1 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 21:46:02.969614   Result: D20: 13 +1 
+2022-07-01 21:47:29.417459   rolling d20+2 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 21:47:29.739262   Result: D20: 2 +2 
+2022-07-01 21:57:03.676992   rolling d20+5 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 21:57:04.008037   Result: D20: 5 +5 
+2022-07-01 21:57:11.580959   rolling d20+5 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 21:57:11.859741   Result: D20: 7 +5 
+2022-07-01 22:02:43.670164   rolling d20+2 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 22:02:44.034789   Result: D20: 5 +2 
+2022-07-01 22:04:26.192081   rolling d20+2 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 22:04:26.468722   Result: D20: 17 +2 
+2022-07-01 22:09:26.501865   rolling d20+5 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-01 22:09:26.842748   Result: D20: 2 +5 
+2022-07-02 08:23:20.164457   Now online as HexBug#8874. Connected to 3 servers
+2022-07-02 18:13:19.280263   Now online as HexBug#8874. Connected to 3 servers
+2022-07-02 19:30:58.095999   Now online as HexBug#8874. Connected to 3 servers
+2022-07-02 19:34:48.560032   Now online as HexBug#8874. Connected to 3 servers
+2022-07-02 19:36:36.334593   Now online as HexBug#8874. Connected to 3 servers
+2022-07-02 19:42:07.153134   Now online as HexBug#8874. Connected to 3 servers
+2022-07-02 19:49:10.525254   Now online as HexBug#8874. Connected to 3 servers
+2022-07-02 19:49:53.512419   Now online as HexBug#8874. Connected to 3 servers
+2022-07-02 19:56:03.001690   Now online as HexBug#8874. Connected to 3 servers
+2022-07-02 19:57:45.636258   Now online as HexBug#8874. Connected to 3 servers
+2022-07-02 20:00:03.708707   Now online as HexBug#8874. Connected to 3 servers
+2022-07-03 01:10:27.427137   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 09:34:25.818570   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 15:29:50.875862   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 15:30:57.104770   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 15:31:50.809056   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 16:57:29.415904   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 17:04:08.675445   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 17:07:50.876836   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 17:33:30.539776   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 17:36:51.953619   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 17:37:43.176499   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 17:38:49.693505   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 17:44:15.941688   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 17:44:43.004556   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 17:57:23.007843   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 17:57:47.335798   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 18:02:46.838971   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 18:05:08.512178   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 18:09:15.235644   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 18:10:27.361815   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 18:18:16.442366   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 18:20:59.885563   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 18:21:24.226406   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 18:21:57.367915   Now online as HexBug#8874. Connected to 3 servers
+2022-07-04 18:22:03.506518   Hexadextrous#4159 looked up Fire Bolt in HexTest Server
+2022-07-04 18:27:26.418250   Hexadextrous#4159 looked up Dream in HexTest Server
+2022-07-04 19:02:54.291727   Hexadextrous#4159 looked up Grease in HexTest Server
+2022-07-04 19:56:10.066838   Hexadextrous#4159 looked up Entangle in HexTest Server
+2022-07-08 09:16:08.822760   Now online as HexBug#8874. Connected to 3 servers
+2022-07-08 17:11:05.878978   Hexadextrous#4159 looked up Dimension Door in HexTest Server
+2022-07-08 17:15:18.841554   Hexadextrous#4159 looked up Weird in HexTest Server
+2022-07-08 17:15:30.373916   Hexadextrous#4159 looked up Light in HexTest Server
+2022-07-08 17:15:54.100509   Hexadextrous#4159 looked up Faerie Fire in HexTest Server
+2022-07-12 09:15:22.221173   Now online as HexBug#8874. Connected to 3 servers
+2022-07-12 21:12:22.578596   Now online as HexBug#8874. Connected to 3 servers
+2022-07-13 08:56:44.312936   Now online as HexBug#8874. Connected to 3 servers
+2022-07-13 22:21:59.726188   Now online as HexBug#8874. Connected to 3 servers
+2022-07-14 09:02:06.551165   Now online as HexBug#8874. Connected to 3 servers
+2022-07-14 19:48:05.385343   rolling 1d20+1 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 19:48:05.853326   Result: D20: 11 +1 
+2022-07-14 19:48:18.191943   rolling 1d20+1 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 19:48:18.519081   Result: D20: 12 +1 
+2022-07-14 19:52:26.486430   rolling 1d20+2 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 19:52:26.944787   Result: D20: 19 +2 
+2022-07-14 19:54:13.610951   rolling 1d20+5 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 19:54:13.980619   Result: D20: 18 +5 
+2022-07-14 19:54:42.251718   rolling d4+3 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 19:54:42.841539   Result: D4: 2 +3 
+2022-07-14 20:09:19.153107   rolling 1d20+2 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 20:09:19.639713   Result: D20: 14 +2 
+2022-07-14 20:26:19.770068   rolling 1d20+5 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 20:26:20.641019   Result: D20: 20 +5 
+2022-07-14 20:27:38.883815   rolling 2d6+3 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 20:27:39.230070   Result: D6: 1 D6: 4 +3 
+2022-07-14 20:32:09.118075   rolling 1d20+6 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 20:32:09.478056   Result: D20: 20 +6 
+2022-07-14 20:49:35.479103   rolling 1d12+4 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 20:49:35.893284   Result: D12: 10 +4 
+2022-07-14 20:57:02.753735   rolling 1d20+3 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 20:57:03.101947   Result: D20: 16 +3 
+2022-07-14 21:04:33.843406   rolling 1d20+2 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 21:04:34.354903   Result: D20: 12 +2 
+2022-07-14 21:18:13.784934   rolling 1d20+2 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 21:18:14.223565   Result: D20: 20 +2 
+2022-07-14 21:24:24.871773   rolling 1d20+1 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 21:24:25.294437   Result: D20: 20 +1 
+2022-07-14 21:44:28.087969   rolling 1d20+5 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 21:44:28.445683   Result: D20: 10 +5 
+2022-07-14 21:44:35.947873   rolling 1d20+5 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 21:44:36.257398   Result: D20: 2 +5 
+2022-07-14 22:26:21.447896   rolling 1d20+2 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 22:26:21.826531   Result: D20: 16 +2 
+2022-07-14 22:32:13.811417   Hexadextrous#4159 looked up Bane in Tales from the yawning portal
+2022-07-14 22:32:25.307925   Hexadextrous#4159 looked up Inflict Wounds in Tales from the yawning portal
+2022-07-14 22:38:33.143865   rolling 1d20+5 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 22:38:33.525170   Result: D20: 3 +5 
+2022-07-14 22:53:35.319537   rolling 1d20+5 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 22:53:35.660883   Result: D20: 6 +5 
+2022-07-14 23:00:27.392990   Hexadextrous#4159 looked up Cure Wounds in Tales from the yawning portal
+2022-07-14 23:01:25.406796   rolling 1d20+5 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 23:01:25.752544   Result: D20: 19 +5 
+2022-07-14 23:04:24.795783   rolling 1d20+2 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 23:04:25.148177   Result: D20: 1 +2 
+2022-07-14 23:04:34.895602   rolling 1d20+2 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-14 23:04:35.112089   Result: D20: 10 +2 
+2022-07-15 09:34:27.973679   Now online as HexBug#8874. Connected to 3 servers
+2022-07-18 12:18:42.519602   Now online as HexBug#8874. Connected to 3 servers
+2022-07-18 14:26:53.655209   Now online as HexBug#8874. Connected to 3 servers
+2022-07-18 14:30:22.398195   Flipping a coin for Hexadexterous#4159 in HexTest Server
+2022-07-18 14:30:23.836629   Heads
+2022-07-18 14:31:03.665267   Now online as HexBug#8874. Connected to 3 servers
+2022-07-18 14:31:16.508263   Flipping a coin for Hexadexterous#4159 in HexTest Server
+2022-07-18 14:31:17.936551   Heads
+2022-07-18 14:32:34.029059   Now online as HexBug#8874. Connected to 3 servers
+2022-07-18 14:32:44.099000   Flipping a coin for Hexadexterous#4159 in HexTest Server
+2022-07-18 14:32:45.527698   Heads
+2022-07-18 14:46:42.656851   Now online as HexBug#8874. Connected to 3 servers
+2022-07-18 14:48:39.139234   Now online as HexBug#8874. Connected to 3 servers
+2022-07-18 14:52:45.424545   Now online as HexBug#8874. Connected to 3 servers
+2022-07-18 14:56:46.282632   Flipping a coin for Hexadexterous#4159 in HexTest Server
+2022-07-18 14:56:47.740304   Tails
+2022-07-18 15:02:42.689259   Now online as HexBug#8874. Connected to 3 servers
+2022-07-18 15:02:45.451013   Flipping a coin for Hexadexterous#4159 in HexTest Server
+2022-07-18 15:02:46.875755   Heads
+2022-07-18 15:55:30.847451   Lord of Rats#8729 looked up Fire Storm in Tales from the yawning portal
+2022-07-18 16:36:11.728476   rolling 14d6 for Lord of Rats#8729 in Tales from the yawning portal
+2022-07-18 16:36:12.200794   Result: D6: 1 D6: 1 D6: 1 D6: 3 D6: 2 D6: 5 D6: 5 D6: 2 D6: 1 D6: 5 D6: 1 D6: 4 D6: 2 D6: 6 

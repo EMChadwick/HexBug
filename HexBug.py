@@ -1,6 +1,6 @@
 #Written by Ed Chadwick - super OC, do not steal
-#imports
 import os
+import json
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
@@ -12,8 +12,8 @@ import random
 import time
 
 def log(Message):
-    f = open("hexLog.txt","a")      
-    f.write(str(datetime.datetime.now())+ '   ' + str(Message) + '\n')
+    with open("hexLog.txt","a") as f:     
+        f.write(str(datetime.datetime.now())+ '   ' + str(Message) + '\n')
     
 #load the environment variables
 try:
@@ -28,19 +28,46 @@ prefix = "~"
 #define client
 client =  Bot(description='', command_prefix=prefix, pm_help = False)
 
-#write logs to a file, create one if it doesn't exist
+#map commands to function names and whether they're admin-only or not
 command_library = {
-        "help":["list_commands", False],
-        "roll": ["process_dice",False],
-        "flip": ["flip",False],
-        "hi": ["greet",False],
-        "invent": ["invent",False],
-        "affirmation":["affirmation", False],
-        "users": ["count_users",True],
-        "servers": ["list_servers",True],
-        "kill": ["kill_bot",True]
+        "help":["list_commands", False, ""],
+        "roll": ["process_dice",False, "xD[die]+xD[die]..."],
+        "flip": ["flip",False, ""],
+        "hi": ["greet",False, ""],
+        "invent": ["invent",False, ""],
+        "affirmation":["affirmation", False, ""],
+        "users": ["count_users",True, ""],
+        "servers": ["list_servers",True, ""],
+        "kill": ["kill_bot",True, ""],
+        "spell": ["spell_lookup", False, "[spell name]"]
         }
 
+wizard_names = ["aganazzar's",
+                "snilloc's",
+                "tasha's",
+                "otto's",
+                "mordenkainen's",
+                "tenser's",
+                "melf's",
+                "nystul's",
+                "bigby's",
+                "otiluke's",
+                "leomund's",
+                "evard's",
+                "rary's",
+                "drawmij's"]
+
+
+def create_profile_if_none(auth_ID, auth_L):
+    user_dir = os.path.join(os.getcwd(), 'UserProfiles/{0}'.format(auth_ID))
+    if not os.path.exists(user_dir):
+        os.mkdir(user_dir)
+        with open('UserDataTemplate.json') as template:
+            new_data = json.load(template)
+            new_data['Username'] = auth_L
+        with open(os.path.join(user_dir, 'UserData.json'), 'w') as new_profile:
+            json.dump(new_data, new_profile)
+        log('New profile created for {0}#{1}'.format(auth_L, auth_ID))
 
 def roll(die, num=1):
     results = {"total":0,"dieRolls":[]}
@@ -62,7 +89,7 @@ async def list_commands(message, args):
     for cmd in command_library.keys():
         # only show non-admin commands
         if command_library[cmd][1] == False:
-            cmd_list = cmd_list + '~{0}\n'.format(cmd)
+            cmd_list = cmd_list + '~{0} {1}\n'.format(cmd, command_library[cmd][2])
     await message.channel.send(cmd_list)
 
 # WHERE'S RACHEL? 
@@ -94,7 +121,7 @@ async def process_dice(message, args):
                 if re.match('[0-9]',eq[0]):
                     if int(die[0]) >=20:
                         error = 'Too many dice'
-                        return(0,'',error)
+                        break
                     rl = roll(int(die[1]),int(die[0]))
                     total = total + rl["total"]
 
@@ -123,7 +150,43 @@ async def process_dice(message, args):
         await message.channel.send('your result is {0}\n{1}'.format(total,rollSummary))
         log("Result: {0}".format(rollSummary))
 
-
+# Search for spell descriptions from an online API
+async def spell_lookup(message, args):
+    spell_index = 1
+    if args[1].lower() in wizard_names:
+        spell_index = 2
+    spell_name = '-'.join(args[spell_index:])
+    request = req.get("https://www.dnd5eapi.co/api/spells/{0}".format(spell_name))
+    if request.status_code == 200:       
+        spell_json = request.json()
+        if spell_json['level'] == 0:
+            level_school = '{0} Cantrip'.format(spell_json['school']['name'])
+        else:
+            level_school = 'Level {0} {1}'.format(spell_json['level'],spell_json['school']['name'])
+        components = '/'.join(spell_json['components'])
+        if 'material' in spell_json.keys():
+            material = "({0})".format(spell_json['material'])
+        else:
+            material = ''     
+        spell_content = "**{0}**\n*{1}*\n***Casting time*** {2}\n***Range*** {3}\n***Components*** {4} {5}\n***Duration*** {6}\n```\n".format(spell_json['name'],level_school,spell_json['casting_time'],spell_json['range'],components,material,spell_json['duration'])
+        limitHit = False
+        for d in spell_json['desc']:
+            if len(spell_content + d) <= 1997:
+                spell_content = "{0}{1}\n".format(spell_content,d)
+            else:
+                if limitHit == False:
+                    await message.channel.send("{0}\n```".format(spell_content))
+                    limitHit = True
+                else:              
+                    await message.channel.send("```\n{0}\n```".format(d))
+        if not limitHit:
+            await message.channel.send("{0}\n```".format(spell_content))
+        log("{0} looked up {1} in {2}".format(message.author,spell_json['name'],message.guild)) 
+    else:
+        await message.channel.send("Arcane spell failure for {0}. Is that a homebrew spell?".format(spell_name.replace('-',' ')))
+        if request.status_code == 500:
+            log("Internal server error while calling https://www.dnd5eapi.co/api/spells/{0}").format(spell_name)
+     
 # come up with a random invention: an x for a y
 async def invent(message, args):
     log("generating ideas to share with " + str(message.author))
@@ -131,7 +194,7 @@ async def invent(message, args):
     if (request.status_code != 200):
         await message.channel.send('Ideas machine broke.')
     else:
-        await message.channel.send("What about " + request.json()["this"] + " for " + request.json()['that'])
+        await message.channel.send("What about {0} for {1}".format(request.json()["this"],request.json()['that']))
 
 # Like a fortune cookie you know will be good.
 async def affirmation(message, args):
@@ -144,7 +207,7 @@ async def affirmation(message, args):
 
 
 # ADMIN: look at how they massacred my boy.
-async def kill(message, args):
+async def kill_bot(message, args):
     log(str(message.author) + " initiated kill command \nShutting down...")
     await message.channel.send('Going offline')
     quit()
@@ -178,18 +241,20 @@ async def on_message(message):
         #get the message, split it into the command and its arguments for later use. 
         args = message.content.split(" ")
         command = args[0]
-        key_word = command.replace(prefix,'')
+        key_word = command.replace(prefix,'').lower()
         authL = str(message.author)[:-5]
+        authID = str(message.author)[-4:]
         
         #Check the command exists in the dictionary, and that the user is me if it's an admin command, then run it.
         if key_word in command_library.keys():
             if command_library[key_word][1] == True and str(message.author) != "Hexadextrous#4159":
-                await message.channel.send("Access Denied: {0} command for executive users only".format(command))
+                await message.channel.send("Access Denied: ~{0} command for executive users only".format(key_word))
             else:
+                create_profile_if_none(authID, authL)
                 execute = globals()[command_library[key_word][0]]
                 await execute(message, args)  
         else:
-            await message.channel.send('Command '+ command + ' not found. Try running ~help')
+            await message.channel.send('Command {0} not found. Try running ~help'.format(key_word))
             
     else:
        pass

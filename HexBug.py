@@ -31,7 +31,7 @@ client =  Bot(description='', command_prefix=prefix, pm_help = False)
 #map commands to function names and whether they're admin-only or not
 command_library = {
         "help":["list_commands", False, ""],
-        "roll": ["process_dice",False, "xD[die]+xD[die]..."],
+        "roll": ["process_dice",False, "*xD[die]+xD[die]...*"],
         "flip": ["flip",False, ""],
         "hi": ["greet",False, ""],
         "invent": ["invent",False, ""],
@@ -39,7 +39,8 @@ command_library = {
         "users": ["count_users",True, ""],
         "servers": ["list_servers",True, ""],
         "kill": ["kill_bot",True, ""],
-        "spell": ["spell_lookup", False, "[spell name]"]
+        "spell": ["spell_lookup", False, "*[spell name]*"],
+        "luck": ["user_luck", False, ""]
         }
 
 wizard_names = ["aganazzar's",
@@ -58,10 +59,18 @@ wizard_names = ["aganazzar's",
                 "drawmij's"]
 
 
+def get_user_file(message):
+    if os.path.exists(os.path.join(os.getcwd(), 'UserProfiles', str(message.author)[-4:], 'UserData.json')):
+        return os.path.join(os.getcwd(), 'UserProfiles', str(message.author)[-4:], 'UserData.json')
+    else:
+        return None
+
 def create_profile_if_none(auth_ID, auth_L):
-    user_dir = os.path.join(os.getcwd(), 'UserProfiles/{0}'.format(auth_ID))
+    user_dir = os.path.join(os.getcwd(), 'UserProfiles', auth_ID)
+    user_file = os.path.join(os.getcwd(), 'UserProfiles', auth_ID, 'UserData.json')
     if not os.path.exists(user_dir):
         os.mkdir(user_dir)
+    if not os.path.exists(user_file):
         with open('UserDataTemplate.json') as template:
             new_data = json.load(template)
             new_data['Username'] = auth_L
@@ -69,13 +78,44 @@ def create_profile_if_none(auth_ID, auth_L):
             json.dump(new_data, new_profile)
         log('New profile created for {0}#{1}'.format(auth_L, auth_ID))
 
+
+def update_user_rolls(auth_ID, dice, crits, fails):
+    user_file = os.path.join(os.getcwd(), 'UserProfiles', auth_ID, 'UserData.json')
+    with open(user_file) as profile:
+        user_json = json.load(profile)
+        if dice != '':
+            die = int(dice)
+        else:
+            die = 1
+        if 'DiceLuck' not in user_json.keys():
+            user_json['DiceLuck'] = {
+                    "TotalRolls": die,
+                    "Crits": int(crits),
+                    "Fails": int(fails)
+                    }
+        else:
+            user_json['DiceLuck']['TotalRolls'] = user_json['DiceLuck']['TotalRolls'] + die
+            user_json['DiceLuck']['Crits'] = user_json['DiceLuck']['Crits'] + int(crits)
+            user_json['DiceLuck']['Fails'] = user_json['DiceLuck']['Fails'] + int(fails)
+    with open(user_file, 'w') as new_profile:
+        json.dump(user_json, new_profile)
+
+
 def roll(die, num=1):
     results = {"total":0,"dieRolls":[]}
+    crits = 0
+    fails = 0
     for z in range(num):
         chuck = random.randint(1,die)
         results["total"] = results["total"] + chuck
         results["dieRolls"].append([chuck,die])
-    return results
+    if die == 20:
+        for r in results['dieRolls']:
+            if r[0] == 20:
+                crits = crits + 1
+            if r[0] == 1:
+                fails = fails + 1
+    return results, crits, fails
 
 
 # Hello world!
@@ -96,7 +136,7 @@ async def list_commands(message, args):
 async def flip(message, args):
     await message.channel.send('flipping a coin...')
     log("Flipping a coin for {0} in {1}".format(str(message.author), str(message.guild)))
-    flip = roll(2)
+    flip, c, f = roll(2)
     time.sleep(1.2)
     if flip["total"] == 1:
         await message.channel.send('Heads!')
@@ -119,14 +159,16 @@ async def process_dice(message, args):
             if 'd' in eq:
                 die = eq.split('d')
                 if re.match('[0-9]',eq[0]):
-                    if int(die[0]) >=20:
+                    if int(die[0]) > 20:
                         error = 'Too many dice'
                         break
-                    rl = roll(int(die[1]),int(die[0]))
+                    rl, c, f = roll(int(die[1]),int(die[0]))
+                    update_user_rolls(str(message.author)[-4:], die[0], c, f)
                     total = total + rl["total"]
 
                 else:
-                    rl = roll(int(die[1]))
+                    rl, c, f = roll(int(die[1]))
+                    update_user_rolls(str(message.author)[-4:], die[0], c, f)
                     total = total + rl["total"]
                 for r in rl["dieRolls"]:
                     rolls.append(r)
@@ -186,6 +228,24 @@ async def spell_lookup(message, args):
         await message.channel.send("Arcane spell failure for {0}. Is that a homebrew spell?".format(spell_name.replace('-',' ')))
         if request.status_code == 500:
             log("Internal server error while calling https://www.dnd5eapi.co/api/spells/{0}").format(spell_name)
+            
+
+# LUCK! get it? sounds almost exactly like fu-
+async def user_luck(message, args):
+    file = get_user_file(message)
+    if file is not None:
+        with open(file) as profile:
+            user_json = json.load(profile)
+            if 'DiceLuck' not in user_json.keys():
+                await message.channel.send("Sorry, you haven't got any rolls on record yet.")
+            else:
+                rollData = [user_json['DiceLuck']['TotalRolls'], user_json['DiceLuck']['Crits'], user_json['DiceLuck']['Fails']]
+                rollData.append(round((user_json['DiceLuck']['Crits']/user_json['DiceLuck']['TotalRolls'])*100, 2))
+                rollData.append(round((user_json['DiceLuck']['Fails']/user_json['DiceLuck']['TotalRolls'])*100, 2))
+                await message.channel.send("On record, you've made {0} D20 rolls.\n{1} of those were crit successes, {2} of those were crit fails.\n{3}% crit rate, {4}% crit fail rate.".format(rollData[0], rollData[1], rollData[2], rollData[3], rollData[4]))
+            
+    else:
+        await message.channel.send("Profile missing - this is awkward.")
      
 # come up with a random invention: an x for a y
 async def invent(message, args):
@@ -247,7 +307,7 @@ async def on_message(message):
         
         #Check the command exists in the dictionary, and that the user is me if it's an admin command, then run it.
         if key_word in command_library.keys():
-            if command_library[key_word][1] == True and str(message.author) != "Hexadextrous#4159":
+            if command_library[key_word][1] == True and str(message.author) != "Hexadexterous#4159":
                 await message.channel.send("Access Denied: ~{0} command for executive users only".format(key_word))
             else:
                 create_profile_if_none(authID, authL)

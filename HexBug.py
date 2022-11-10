@@ -154,7 +154,7 @@ async def process_dice(message, args):
     nums = []
     rollSummary = ''
     error = ''
-    if(re.match('^([0-9]*[dD](4|6|8|10|12|20)\+?)+(\+[0-9]+)*$','+'.join(equation))) and len(equation) <= 10:
+    if(re.match('^([0-9]*[dD](4|6|8|10|12|20|100)\+?)+((\+[0-9]+)|(\+[0-9]*[dD](4|6|8|10|12|20|100)\+?))*$','+'.join(equation))) and len(equation) <= 10:
         for eq in equation:
             if 'd' in eq:
                 die = eq.split('d')
@@ -178,7 +178,7 @@ async def process_dice(message, args):
         for item in rolls:
             rollSummary = rollSummary + 'D'+str(item[1]) +': '+ str(item[0]) + ' '
         for n in nums:
-            rollSummary = rollSummary + '+' + eq + ' '
+            rollSummary = rollSummary + '+' + n + ' '
 
     else:
         if len(equation) > 10:

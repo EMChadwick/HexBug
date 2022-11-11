@@ -79,6 +79,14 @@ def create_profile_if_none(auth_ID, auth_L):
         log('New profile created for {0}#{1}'.format(auth_L, auth_ID))
 
 
+def get_admins():
+    if os.path.exists('Admins.json'):
+        with open('Admins.json') as adminfile:
+            return json.load(adminfile)['admins']
+    else:
+        return []
+
+
 def update_user_rolls(auth_ID, dice, crits, fails):
     user_file = os.path.join(os.getcwd(), 'UserProfiles', auth_ID, 'UserData.json')
     with open(user_file) as profile:
@@ -198,7 +206,7 @@ async def spell_lookup(message, args):
     if args[1].lower() in wizard_names:
         spell_index = 2
     spell_name = '-'.join(args[spell_index:])
-    request = req.get("https://www.dnd5eapi.co/api/spells/{0}".format(spell_name))
+    request = req.get("https://www.dnd5eapi.co/api/spells/{0}".format(spell_name.lower()))
     if request.status_code == 200:       
         spell_json = request.json()
         if spell_json['level'] == 0:
@@ -307,7 +315,7 @@ async def on_message(message):
         
         #Check the command exists in the dictionary, and that the user is me if it's an admin command, then run it.
         if key_word in command_library.keys():
-            if command_library[key_word][1] == True and str(message.author) != "Hexadexterous#4159":
+            if command_library[key_word][1] == True and str(message.author) not in get_admins():
                 await message.channel.send("Access Denied: ~{0} command for executive users only".format(key_word))
             else:
                 create_profile_if_none(authID, authL)

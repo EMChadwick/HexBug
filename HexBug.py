@@ -11,6 +11,8 @@ import re
 import random
 import time
 
+
+# Quick, write that down!
 def log(Message):
     with open("hexLog.txt","a") as f:     
         f.write(str(datetime.datetime.now())+ '   ' + str(Message) + '\n')
@@ -40,7 +42,8 @@ command_library = {
         "servers": ["list_servers",True, ""],
         "kill": ["kill_bot",True, ""],
         "spell": ["spell_lookup", False, "*[spell name]*"],
-        "luck": ["user_luck", False, ""]
+        "luck": ["user_luck", False, ""],
+        "condition": ["get_condition", False, "*[condition name]*"]
         }
 
 wizard_names = ["aganazzar's",
@@ -59,12 +62,14 @@ wizard_names = ["aganazzar's",
                 "drawmij's"]
 
 
+# Retrieve a user's UserData file path
 def get_user_file(message):
     if os.path.exists(os.path.join(os.getcwd(), 'UserProfiles', str(message.author)[-4:], 'UserData.json')):
         return os.path.join(os.getcwd(), 'UserProfiles', str(message.author)[-4:], 'UserData.json')
     else:
         return None
 
+# Generate a profile for a user
 def create_profile_if_none(auth_ID, auth_L):
     user_dir = os.path.join(os.getcwd(), 'UserProfiles', auth_ID)
     user_file = os.path.join(os.getcwd(), 'UserProfiles', auth_ID, 'UserData.json')
@@ -79,6 +84,7 @@ def create_profile_if_none(auth_ID, auth_L):
         log('New profile created for {0}#{1}'.format(auth_L, auth_ID))
 
 
+# Who's in charge here?
 def get_admins():
     if os.path.exists('Admins.json'):
         with open('Admins.json') as adminfile:
@@ -87,6 +93,7 @@ def get_admins():
         return []
 
 
+# Good or bad, it's going in the book.
 def update_user_rolls(auth_ID, dice, crits, fails):
     user_file = os.path.join(os.getcwd(), 'UserProfiles', auth_ID, 'UserData.json')
     with open(user_file) as profile:
@@ -108,7 +115,7 @@ def update_user_rolls(auth_ID, dice, crits, fails):
     with open(user_file, 'w') as new_profile:
         json.dump(user_json, new_profile)
 
-
+# Paying anything to roll the dice just one more itme.
 def roll(die, num=1):
     results = {"total":0,"dieRolls":[]}
     crits = 0
@@ -236,6 +243,7 @@ async def spell_lookup(message, args):
         await message.channel.send("Arcane spell failure for {0}. Is that a homebrew spell?".format(spell_name.replace('-',' ')))
         if request.status_code == 500:
             log("Internal server error while calling https://www.dnd5eapi.co/api/spells/{0}").format(spell_name)
+        log(f"Error fetching spell {spell_name.replace('-',' ')}: error {request.status_code}")
             
 
 # LUCK! get it? sounds almost exactly like fu-
@@ -254,13 +262,32 @@ async def user_luck(message, args):
             
     else:
         await message.channel.send("Profile missing - this is awkward.")
-     
+   
+    
+async def get_condition(message, args):
+    if len(args) < 2:
+        request = req.get(f"https://www.dnd5eapi.co/api/conditions/")
+        condition_json = request.json()
+        reply = ', '.join([x['name'] for x in condition_json['results']])
+        await message.channel.send(f"**Conditions**: {reply}")
+    else:
+        request = req.get(f"https://www.dnd5eapi.co/api/conditions/{args[1].lower()}")
+        if (request.status_code != 200):
+            await message.channel.send(f"Couldn't find that condition.")
+        else:
+            condition_json = request.json()
+            reply = ""
+            for d in condition_json["desc"]:
+                reply = f"{reply}{d}\n"
+            await message.channel.send(f"**{condition_json['name']}**\n{reply}")
+
 # come up with a random invention: an x for a y
 async def invent(message, args):
     log("generating ideas to share with " + str(message.author))
     request = req.get('http://itsthisforthat.com/api.php?json')
     if (request.status_code != 200):
         await message.channel.send('Ideas machine broke.')
+        log(f"Fetching ideas failed: error {request.status_code}")
     else:
         await message.channel.send("What about {0} for {1}".format(request.json()["this"],request.json()['that']))
 
@@ -270,6 +297,7 @@ async def affirmation(message, args):
     request = req.get('https://www.affirmations.dev/')
     if (request.status_code != 200):
         await message.channel.send("Affirmation machine broke.")
+        log(f"Fetching affirmations failed: error {request.status_code}")
     else:
         await message.channel.send(request.json()["affirmation"])
 

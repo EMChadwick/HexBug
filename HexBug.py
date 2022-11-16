@@ -33,7 +33,8 @@ client =  Bot(description='', command_prefix=prefix, pm_help = False)
 #map commands to function names and whether they're admin-only or not
 command_library = {
         "help":["list_commands", False, ""],
-        "roll": ["process_dice",False, "*xD[die]+xD[die]...*"],
+        "roll": ["process_dice",False, "*xD[die]+xD[die]...* or [skill/ability]"],
+        "save": ["save_roll", True, "[ability]"],
         "flip": ["flip",False, ""],
         "hi": ["greet",False, ""],
         "invent": ["invent",False, ""],
@@ -73,8 +74,11 @@ def get_user_file(message):
     
 def get_user_json(message):
     profile = get_user_file(message)
-    with open(profile) as p:
-        return json.load(p)
+    if profile is not None:
+        with open(profile) as p:
+            return json.load(p)
+    else:
+        return None
 
 # Generate a profile for a user
 def create_profile_if_none(auth_ID, auth_L):
@@ -183,12 +187,21 @@ def get_skills(s_class):
 
 
 
-async def get_bonus(stat, message):
+def get_bonus(stat, message):
     b_json = get_user_json(message)
     if "Character_Sheets" not in b_json.keys():
-        await message.channel.send("You don't have a character sheet. No skill bonus can be added.")
         return 0
     return int((b_json["Character_Sheets"][b_json["Selected_sheet"]]["Ability_Scores"][stat] -10)/2)
+
+
+def get_proficiency(message, attr):
+    p_json = get_user_json(message)
+    if p_json is not None:
+        if "Proficiency" in p_json["Character_Sheets"][p_json["Selected_sheet"]].keys():
+            if (attr[:3].upper() in p_json["Character_Sheets"][p_json["Selected_sheet"]]["Saves"] and attr != "intimidation") or (attr in p_json["Character_Sheets"][p_json["Selected_sheet"]]["Skills"]):
+
+                return p_json["Character_Sheets"][p_json["Selected_sheet"]]["Proficiency"]
+    return 0
 
 
 
@@ -198,17 +211,9 @@ async def process_dice(message, args):
     rollSummary = ''
     total = 0
     #ability checks
-    if args[-1][0:3].upper() in ["STR","DEX","CON","INT","WIS","CHA"]:
-        rl, c, f = roll(20)
-        bonus = await get_bonus(args[-1][0:3].upper(), message)
-        b_text = ''
-        total = rl['total'] + bonus
-        if bonus > 0:
-            b_text = f"({rl['total']} +{bonus})"
-        if bonus < 0:
-            b_text = f"({rl['total']} {bonus})"
-        update_user_rolls(str(message.author)[-4:], 1, c, f)
-        await message.channel.send(f"**{args[-1][0:3].upper()}** check: {total} {b_text}")
+    if args[-1][0:3].upper() in ["STR","DEX","CON","INT","WIS","CHA"] and args[-1].lower() != "intimidation":
+        a_roll = ability_roll(message, args[-1][0:3].upper(), False)
+        await message.channel.send(f"**{args[-1][0:3].upper()}** check: {a_roll[0]} {a_roll[1]}")
         return
     #skill checks
     if '-'.join(args[1:]) in get_skills(None):
@@ -217,15 +222,21 @@ async def process_dice(message, args):
         s_req = req.get(f"https://www.dnd5eapi.co/api/skills/{skill}")
         if s_req.status_code == 200:
             s_json = s_req.json()
-            bonus = await get_bonus(s_json["ability_score"]["name"], message)
-            b_text = ''
-            total = rl['total'] + bonus
-            if bonus > 0:
-                b_text = f"({rl['total']} +{bonus})"
-            if bonus < 0:
-                b_text = f"({rl['total']} {bonus})"
+            bonus = get_bonus(s_json["ability_score"]["name"], message)
+            t_text = ''
+            prof = get_proficiency(message, skill)
+            total = rl['total'] + bonus + prof
+            if bonus != 0 or prof != 0:
+                t_text = f"({rl['total']}"
+                if bonus > 0:
+                    t_text = f"{t_text} +{bonus}"
+                if bonus < 0:
+                    t_text = f"{t_text} {bonus}"
+                if prof > 0:
+                    t_text = f"{t_text} `+{prof}`"
+                t_text = f"{t_text})"
             update_user_rolls(str(message.author)[-4:], 1, c, f)
-            await message.channel.send(f"**{s_json['name'].replace('-', ' ')}** check: {total} {b_text} *{s_json['ability_score']['name']}*")
+            await message.channel.send(f"**{s_json['name'].replace('-', ' ')}** check: {total} {t_text} *{s_json['ability_score']['name']}*")
             return
         else:
             await message.channel.send(f"Failed to fetch ability score for {skill}")
@@ -273,7 +284,37 @@ async def process_dice(message, args):
     else:
         await message.channel.send('your result is {0}\n{1}'.format(total,rollSummary))
         log("Result: {0}".format(rollSummary))
+        
+        
+        
+def ability_roll(message, stat, save):
+    total = 0
+    rl, c, f = roll(20)
+    bonus = get_bonus(stat, message)
+    t_text = ''
+    prof = 0
+    if save:
+        prof = get_proficiency(message, stat)
+        print(prof)
+    total = rl['total'] + bonus + prof
+    if bonus != 0 or prof != 0:
+        t_text = f"({rl['total']}"
+        if bonus > 0:
+            t_text = f"{t_text} +{bonus}"
+        if bonus < 0:
+            t_text = f"{t_text} {bonus}"
+        if prof > 0:
+            t_text = f"{t_text} `+{prof}`"
+        t_text = f"{t_text})"
+    update_user_rolls(str(message.author)[-4:], 1, c, f)
+    return [total, t_text]
 
+async def save_roll(message, args):
+    if args[-1][0:3].upper() in ["STR","DEX","CON","INT","WIS","CHA"] and args[-1].lower() != "intimidation":
+        a_roll = ability_roll(message, args[-1][0:3].upper(), True)
+        await message.channel.send(f"**{args[-1][0:3].upper()}** save: {a_roll[0]} {a_roll[1]}")
+        return
+    
 # Search for spell descriptions from an online API
 async def spell_lookup(message, args):
     spell_index = 1
@@ -388,6 +429,7 @@ async def handle_sheet(message, args):
         h_json = get_user_json(message)
         s_sheet = h_json['Character_Sheets'][h_json['Selected_sheet']]
         await message.channel.send("***{0}***\nLevel {1} {2}\n{3} ".format(s_sheet['Name'], s_sheet['Level'], s_sheet['Class'], ' '.join([f"**{x}**: {y}" for x, y in s_sheet["Ability_Scores"].items()])))
+        return
     if args[1] in sheet_map.keys():
         execute = globals()[sheet_map[args[1]]]
         await execute(message, args)
@@ -442,7 +484,6 @@ async def create_character_sheet(message, args):
 async def set_stat(message, args):
     u_profile = get_user_json(message)
     if args[2][0:3].upper() not in ["STR","DEX","CON","INT","WIS","CHA"]:
-        print(args[2][0:2].upper())
         await message.channel.send('Please select an ability score: STR, DEX, CON, INT, WIS, CHA')
         return
     if len(args) < 4:
@@ -456,7 +497,16 @@ async def set_stat(message, args):
         json.dump(u_profile, new_sheet)
     await message.channel.send(f'{args[2]} for {u_profile["Character_Sheets"][u_profile["Selected_sheet"]]["Name"]} is now {args[3]}')
   
-    
+
+async def choose_skill(message, args):   
+    u_profile = get_user_json(message)
+    if '-'.join(args[1:]) not in get_skills(None):
+        await message.channel.send(f'please input a valid skill name')
+        return
+    u_profile["Character_Sheets"][u_profile["Selected_sheet"]]["Skills"].append('-'.join(args[1:]))
+    with open(get_user_file(message), 'w') as new_sheet:
+        json.dump(u_profile, new_sheet)
+    await message.channel.send(f"'-'.join(args[1:]) added to skills.")
     
     
     

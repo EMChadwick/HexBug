@@ -10,6 +10,8 @@ import datetime
 import re
 import random
 import time
+import HexCharacterSheet as sheets
+import userManager as usr
 
 
 # Quick, write that down!
@@ -33,19 +35,18 @@ client =  Bot(description='', command_prefix=prefix, pm_help = False)
 #map commands to function names and whether they're admin-only or not
 command_library = {
         "help":["list_commands", False, ""],
-        "roll": ["process_dice",False, "*xD[die]+xD[die]...* or [skill/ability]"],
-        "save": ["save_roll", True, "[ability]"],
-        "flip": ["flip",False, ""],
         "hi": ["greet",False, ""],
+        "roll": ["process_dice",False, "*xD[die]+xD[die]...* or [skill/ability]"],
+        "save": ["save_roll", False, "[ability]"],
+        "flip": ["flip",False, ""],
+        "luck": ["user_luck", False, ""],
         "invent": ["invent",False, ""],
-        "affirmation":["affirmation", False, ""],
         "users": ["count_users",True, ""],
         "servers": ["list_servers",True, ""],
         "kill": ["kill_bot",True, ""],
         "spell": ["spell_lookup", False, "*[spell name]*"],
-        "luck": ["user_luck", False, ""],
         "condition": ["get_condition", False, "*[condition name]*"],
-        "sheet": ["handle_sheet", True, "Interact with character sheet. ~sheet help"]
+        "sheet": ["handle_sheet", False, "Interact with character sheet. ~sheet help"]
         }
 
 wizard_names = ["aganazzar's",
@@ -63,22 +64,6 @@ wizard_names = ["aganazzar's",
                 "rary's",
                 "drawmij's"]
 
-
-# Retrieve a user's UserData file path
-def get_user_file(message):
-    if os.path.exists(os.path.join(os.getcwd(), 'UserProfiles', str(message.author)[-4:], 'UserData.json')):
-        return os.path.join(os.getcwd(), 'UserProfiles', str(message.author)[-4:], 'UserData.json')
-    else:
-        return None
-    
-    
-def get_user_json(message):
-    profile = get_user_file(message)
-    if profile is not None:
-        with open(profile) as p:
-            return json.load(p)
-    else:
-        return None
 
 # Generate a profile for a user
 def create_profile_if_none(auth_ID, auth_L):
@@ -172,38 +157,7 @@ async def flip(message, args):
         log('Heads')
     else:
         await message.channel.send('Tails!')
-        log('Tails')
-        
-        
-        
-def get_skills(s_class):
-    if s_class is None:
-        skill_rep = req.get("https://www.dnd5eapi.co/api/skills/")
-        if skill_rep.status_code == 200:
-            skill_json = skill_rep.json()
-            return [x['index'] for x in skill_json['results']]
-        else:
-            return []
-
-
-
-def get_bonus(stat, message):
-    b_json = get_user_json(message)
-    if "Character_Sheets" not in b_json.keys():
-        return 0
-    return int(b_json["Character_Sheets"][b_json["Selected_sheet"]]["Ability_Scores"][stat]/2)-5
-
-
-def get_proficiency(message, attr):
-    p_json = get_user_json(message)
-    if p_json is not None:
-        if "Proficiency" in p_json["Character_Sheets"][p_json["Selected_sheet"]].keys():
-            if (attr[:3].upper() in p_json["Character_Sheets"][p_json["Selected_sheet"]]["Saves"] and attr != "intimidation") or (attr in p_json["Character_Sheets"][p_json["Selected_sheet"]]["Skills"]):
-
-                return p_json["Character_Sheets"][p_json["Selected_sheet"]]["Proficiency"]
-    return 0
-
-
+        log('Tails')        
 
               
 # Process the dice equation            
@@ -216,15 +170,15 @@ async def process_dice(message, args):
         await message.channel.send(f"**{args[-1][0:3].upper()}** check: {a_roll[0]} {a_roll[1]}")
         return
     #skill checks
-    if '-'.join(args[1:]) in get_skills(None):
+    if '-'.join(args[1:]) in sheets.get_skills(None):
         skill = '-'.join(args[1:])
         rl, c, f = roll(20)
         s_req = req.get(f"https://www.dnd5eapi.co/api/skills/{skill}")
         if s_req.status_code == 200:
             s_json = s_req.json()
-            bonus = get_bonus(s_json["ability_score"]["name"], message)
+            bonus = sheets.get_bonus(s_json["ability_score"]["name"], message)
             t_text = ''
-            prof = get_proficiency(message, skill)
+            prof = sheets.get_proficiency(message, skill)
             total = rl['total'] + bonus + prof
             if bonus != 0 or prof != 0:
                 t_text = f"({rl['total']}"
@@ -290,11 +244,11 @@ async def process_dice(message, args):
 def ability_roll(message, stat, save):
     total = 0
     rl, c, f = roll(20)
-    bonus = get_bonus(stat, message)
+    bonus = sheets.get_bonus(stat, message)
     t_text = ''
     prof = 0
     if save:
-        prof = get_proficiency(message, stat)
+        prof = sheets.get_proficiency(message, stat)
         print(prof)
     total = rl['total'] + bonus + prof
     if bonus != 0 or prof != 0:
@@ -411,137 +365,18 @@ async def affirmation(message, args):
 
 
 
-
-
-
-
-#Character sheet functions
-sheet_map = {
-        "create": "create_character_sheet",
-        "set": "set_stat",
-        "select": "select_sheet",
-        "autoroll": "roll_stats"
-        }
-
 # what a load of bool sheet
 async def handle_sheet(message, args):
     if len(args) == 1:
         h_json = get_user_json(message)
         s_sheet = h_json['Character_Sheets'][h_json['Selected_sheet']]
-        await message.channel.send("***{0}***\nLevel {1} {2}\n{3} ".format(s_sheet['Name'], s_sheet['Level'], s_sheet['Class'], ' '.join([f"**{x}**: {y}" for x, y in s_sheet["Ability_Scores"].items()])))
+        await message.channel.send("***{0}***\nLevel {1} {2}\n{3} ".format(s_sheet['Name'], s_sheet['Level'], s_sheet['Class'], ' '.join([f"__**{x}: {y}**__" if x in s_sheet["Saves"] else f"**{x}**: {y}" for x, y in s_sheet["Ability_Scores"].items()])))
         return
-    if args[1] in sheet_map.keys():
-        execute = globals()[sheet_map[args[1]]]
-        await execute(message, args)
+    if args[1] in sheets.sheet_map.keys():
+        reply = await sheets.find_func(message, args)
+        await message.channel.send(reply)
     else:
-        await message.channel.send(f'Not a sheet command. try these: {", ".join(sheet_map.keys())}')
-
-
-async def create_character_sheet(message, args):
-    if len(args) < 3:
-        await message.channel.send('Please give a name - usage: ~sheet create Joe Bloggs')
-        return
-    if len("".join(args)) > 34:
-        await message.channel.send('Please give a name 20 characters or fewer in length.')
-        return
-    u_json = get_user_json(message)
-    if "Selected_sheet" not in u_json.keys():
-        u_json["Selected_sheet"] = None
-    if "Character_Sheets" not in u_json.keys():
-        u_json["Character_Sheets"] = []
-    if len(u_json["Character_Sheets"]) == 5:
-        await message.channel.send('You already have 5 character sheets. Please delete one first')
-        return
-    u_json["Character_Sheets"].append({   
-                "Name": " ".join(args[2:]),
-                "Class": None,
-                "Race": None,
-                "Background": None,
-                "Level": 1,
-                "Ability_Scores": {
-                        "STR": 10,
-                        "DEX": 10,
-                        "CON": 10,
-                        "INT": 10,
-                        "WIS": 10,
-                        "CHA": 10,
-                        },
-                "Skills": [],
-                "Saves" : [],
-                "Proficiency": 1,
-                "Under_Construction": True,
-                "Incomplete": ["Class","Skills", "Race", "Background"]
-                })
-    u_json["Selected_sheet"] = len(u_json["Character_Sheets"]) -1
-    with open(get_user_file(message), 'w') as new_sheet:
-        json.dump(u_json, new_sheet)
-    await message.channel.send(f"{' '.join(args[2:])} has been created. Please choose a class and race. manually set ability scores or roll for them")
-
-
-
-
-
-async def set_stat(message, args):
-    u_profile = get_user_json(message)
-    if args[2][0:3].upper() not in ["STR","DEX","CON","INT","WIS","CHA"]:
-        await message.channel.send('Please select an ability score: STR, DEX, CON, INT, WIS, CHA')
-        return
-    if len(args) < 4:
-        await message.channel.send('Please specify the number')
-        return
-    if not re.match('^([1-9]|1\d|20)$', args[3]):
-        await message.channel.send('valid range is 1-20')
-        return
-    u_profile["Character_Sheets"][u_profile["Selected_sheet"]]["Ability_Scores"][args[2][0:3].upper()] = int(args[3])
-    with open(get_user_file(message), 'w') as new_sheet:
-        json.dump(u_profile, new_sheet)
-    await message.channel.send(f'{args[2]} for {u_profile["Character_Sheets"][u_profile["Selected_sheet"]]["Name"]} is now {args[3]}')
-  
-
-async def choose_skill(message, args):   
-    u_profile = get_user_json(message)
-    if '-'.join(args[1:]) not in get_skills(None):
-        await message.channel.send(f'please input a valid skill name')
-        return
-    u_profile["Character_Sheets"][u_profile["Selected_sheet"]]["Skills"].append('-'.join(args[1:]))
-    with open(get_user_file(message), 'w') as new_sheet:
-        json.dump(u_profile, new_sheet)
-    await message.channel.send(f"'-'.join(args[1:]) added to skills.")
-    
-    
-    
-async def select_sheet(message, args):
-    s_profile = get_user_json(message)
-    if len(args) == 2:
-        await message.channel.send(list_sheets(s_profile))
-        return
-    if len(args) != 3:
-        await message.channel.send('Please specify a character sheet index')
-    if re.match('^([1-5])$', args[2]):
-        if int(args[2]) > len(s_profile["Character_Sheets"]) or int(args[2]) < 1:
-            await message.channel.send("Index out of bounds. Please choose from your profiles:\n{0}".format(list_sheets(s_profile)))
-            return
-        s_profile["Selected_sheet"] = int(args[2]) -1
-        with open(get_user_file(message), 'w') as s_sheet:
-            json.dump(s_profile, s_sheet)
-        await message.channel.send("Profile {0}: *{1}* selected".format(args[2], s_profile["Character_Sheets"][s_profile["Selected_sheet"]]["Name"]))
-    else:
-        await message.channel.send('Please specify a valid character sheet index')
-    
-   
-
-
-         
-def list_sheets(profile):
-    sheet_list = ""
-    for i, sheet in enumerate(profile["Character_Sheets"]):
-        if i == profile["Selected_sheet"]:
-            sheet_list = "{0}\n **{1}: {2}**".format(sheet_list, i+1, profile["Character_Sheets"][i]["Name"])
-        else:
-            sheet_list = "{0}\n {1}: {2}".format(sheet_list, i+1, profile["Character_Sheets"][i]["Name"])
-    return(sheet_list)
-
-
+        await message.channel.send(f'Not a sheet command. try these: {", ".join(usr.sheet_map.keys())}')
 
 
 # ADMIN: look at how they massacred my boy.

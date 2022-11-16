@@ -191,7 +191,7 @@ def get_bonus(stat, message):
     b_json = get_user_json(message)
     if "Character_Sheets" not in b_json.keys():
         return 0
-    return int((b_json["Character_Sheets"][b_json["Selected_sheet"]]["Ability_Scores"][stat] -10)/2)
+    return int(b_json["Character_Sheets"][b_json["Selected_sheet"]]["Ability_Scores"][stat]/2)-5
 
 
 def get_proficiency(message, attr):

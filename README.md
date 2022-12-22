@@ -9,3 +9,6 @@ Run it locally on your machine, or wherever you've deployed it, and add the bot 
 - discord.py
 - python-decouple.py
 - a discord bot account
+
+## Dependencies
+- dnd5eapi web API: Used to fetch spells, and some character stats. find it here: https://www.dnd5eapi.co/docs

@@ -367,16 +367,23 @@ async def affirmation(message, args):
 
 # what a load of bool sheet
 async def handle_sheet(message, args):
+    h_json = usr.get_user_json(str(message.author)[-4:])
     if len(args) == 1:
-        h_json = get_user_json(message)
-        s_sheet = h_json['Character_Sheets'][h_json['Selected_sheet']]
-        await message.channel.send("***{0}***\nLevel {1} {2}\n{3} ".format(s_sheet['Name'], s_sheet['Level'], s_sheet['Class'], ' '.join([f"__**{x}: {y}**__" if x in s_sheet["Saves"] else f"**{x}**: {y}" for x, y in s_sheet["Ability_Scores"].items()])))
-        return
+        print(h_json)
+        if 'Character_Sheets' in h_json.keys():
+            s_sheet = h_json['Character_Sheets'][h_json['Selected_sheet']]
+            await message.channel.send("***{0}***\nLevel {1} {2} {3}\n{4} ".format(s_sheet['Name'], s_sheet['Level'], s_sheet['Race'], s_sheet['Class'], ' '.join([f"__**{x}: {y}**__" if x in s_sheet["Saves"] else f"**{x}**: {y}" for x, y in s_sheet["Ability_Scores"].items()])))
+            return
+        else:
+            await message.channel.send("You don't have any sheets. Create one with ~sheet create [name]")
+            return
     if args[1] in sheets.sheet_map.keys():
+        if not sheets.check_sheet(h_json) and args[1] != "create":
+            return "You don't have any Character sheets"
         reply = await sheets.find_func(message, args)
         await message.channel.send(reply)
     else:
-        await message.channel.send(f'Not a sheet command. try these: {", ".join(usr.sheet_map.keys())}')
+        await message.channel.send(f'Not a sheet command. try these: {", ".join(sheets.sheet_map.keys())}')
 
 
 # ADMIN: look at how they massacred my boy.
@@ -423,7 +430,9 @@ async def on_message(message):
             if command_library[key_word][1] == True and str(message.author) not in get_admins():
                 await message.channel.send("Access Denied: ~{0} command for executive users only".format(key_word))
             else:
-                create_profile_if_none(authID, authL)
+                prof = usr.create_profile_if_none(authID, authL)
+                if prof is not None:
+                    log(prof)
                 execute = globals()[command_library[key_word][0]]
                 await execute(message, args)  
         else:

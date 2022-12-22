@@ -10,7 +10,8 @@ sheet_map = {
         "set": "set_stat",
         "select": "select_sheet",
         "autoroll": "roll_stats",
-        "skill": "choose_skill"
+        "skill": "choose_skill",
+        "race": "set_race"
         }
 
 async def find_func(message, args):
@@ -54,6 +55,9 @@ async def create_character_sheet(message, args):
     u_json["Selected_sheet"] = len(u_json["Character_Sheets"]) -1
     usr.write_data(str(message.author)[-4:], u_json)
     return(f"{' '.join(args[2:])} has been created. Please choose a class and race. manually set ability scores or roll for them")
+
+
+
     
 def get_skills(s_class):
     if s_class is None:
@@ -62,8 +66,22 @@ def get_skills(s_class):
             skill_json = skill_rep.json()
             return [x['index'] for x in skill_json['results']]
         else:
-            return []
+            print(f"Error fetching skills json: {skill_rep.status_code}/n Check dnd5eapi")
+            return ["Something went wrong"]
 
+
+def get_races(s_race):
+    if s_race is None:
+        race_rep = req.get("https://www.dnd5eapi.co/api/races/")
+        if race_rep.status_code == 200:
+            race_json = race_rep.json()
+            return [x['index'] for x in race_json['results']]
+        else:
+            print(f"Error fetching race json: {race_rep.status_code}/n Check dnd5eapi")
+            return ["Something went wrong"]
+
+
+## GETTING MODIFIERS
 
 def get_bonus(stat, message):
     b_json = usr.get_user_json(str(message.author)[-4:])
@@ -75,12 +93,14 @@ def get_bonus(stat, message):
 def get_proficiency(message, attr):
     p_json = usr.get_user_json(str(message.author)[-4:])
     if p_json is not None:
-        if "Proficiency" in p_json["Character_Sheets"][p_json["Selected_sheet"]].keys():
-            if (attr[:3].upper() in p_json["Character_Sheets"][p_json["Selected_sheet"]]["Saves"] and attr != "intimidation") or (attr in p_json["Character_Sheets"][p_json["Selected_sheet"]]["Skills"]):
-
-                return p_json["Character_Sheets"][p_json["Selected_sheet"]]["Proficiency"]
+        if "Character_Sheets" in p_json:
+            if "Proficiency" in p_json["Character_Sheets"][p_json["Selected_sheet"]].keys():
+                if (attr[:3].upper() in p_json["Character_Sheets"][p_json["Selected_sheet"]]["Saves"] and attr != "intimidation") or (attr in p_json["Character_Sheets"][p_json["Selected_sheet"]]["Skills"]):
+    
+                    return p_json["Character_Sheets"][p_json["Selected_sheet"]]["Proficiency"]
     return 0  
 
+## COMMANDS FOR SETTING ATTRIBUTES
 
 async def set_stat(message, args):
     u_profile = usr.get_user_json(str(message.author)[-4:])
@@ -93,6 +113,8 @@ async def set_stat(message, args):
     u_profile["Character_Sheets"][u_profile["Selected_sheet"]]["Ability_Scores"][args[2][0:3].upper()] = int(args[3])
     usr.write_data(str(message.author)[-4:], u_profile)
     return(f'{args[2]} for {u_profile["Character_Sheets"][u_profile["Selected_sheet"]]["Name"]} is now {args[3]}')
+
+    
   
 
 async def choose_skill(message, args):   
@@ -106,7 +128,19 @@ async def choose_skill(message, args):
     usr.write_data(str(message.author)[-4:], u_profile)
     return(f"{choice} added to skills.")
     
+
+
+async def set_race(message, args):
+    r_profile = usr.get_user_json(str(message.author)[-4:])
+    choice = '-'.join(args[2:]).lower()
+    if choice not in get_races(None):
+        return("Can't find that race.")
+    r_profile["Character_Sheets"][r_profile["Selected_sheet"]]["Race"] = choice
+    usr.write_data(str(message.author)[-4:], r_profile)
+    return(f"{r_profile['Character_Sheets'][r_profile['Selected_sheet']]['Name']}'s race set to {choice}")
     
+    
+## COMMANDS FOR NAVIGATING SHEETS   
     
 async def select_sheet(message, args):
     s_profile = usr.get_user_json(str(message.author)[-4:])
@@ -132,3 +166,10 @@ def list_sheets(profile):
         else:
             sheet_list = "{0}\n {1}: {2}".format(sheet_list, i+1, profile["Character_Sheets"][i]["Name"])
     return(sheet_list)
+    
+def check_sheet(profile):
+    if "Character_Sheets" not in profile.keys():
+        return False
+    if len(profile["Character_Sheets"]) == 0:
+        return False
+    return True

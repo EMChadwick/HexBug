@@ -208,39 +208,30 @@ async def process_dice(message, args):
     negNums = []
     error = ''
     equation_parts = re.findall(r'(-?(?:\d*[dD](?:4|6|8|10|12|20|100)|\d+))', equation)
-    if(re.match(r'^((-?[0-9])*[dD](4|6|8|10|12|20|100)\+?)(([+-][0-9]+)|([+-][0-9]*[dD](4|6|8|10|12|20|100)\+?))*$',equation)) and len(equation) <= 10:
+    if(re.match(r'^((-?[0-9])*[dD](4|6|8|10|12|20|100)\+?)(([+-][0-9]+)|([+-][0-9]*[dD](4|6|8|10|12|20|100)\+?))*$',equation)) and len(equation) <= 20:
         for eq in equation_parts:
             if 'd' in eq:
                 die = eq.split('d')
+                count = 1
                 if re.match('-?[0-9]',die[0]):
                     if int(die[0]) > 20:
                         error = 'Too many dice'
                         break
-                    rl, c, f = roll(int(die[1]),abs(int(die[0])))
-                    update_user_Rolls(str(message.author)[-4:], die[0], c, f)
-                    if('-' in eq):
-                        total = total - rl["total"]
-                    else:
-                        total = total + rl["total"]
-
-                else:
-                    rl, c, f = roll(int(die[1]))
-                    update_user_Rolls(str(message.author)[-4:], 1, c, f)
+                    count = abs(int(die[0]))
+                rl, c, f = roll(int(die[1]),count)
+                update_user_Rolls(str(message.author)[-4:], count, c, f)
                 if('-' in eq):
                     total = total - rl["total"]
                 else:
                     total = total + rl["total"]
-                for r in rl["dieRolls"]:
-                    if('-' in eq):
-                        negRolls.append(r)
-                    else:
-                        posRolls.append(r)
+
+                negRolls.extend([r for r in rl["dieRolls"] if '-' in eq])
+                posRolls.extend([r for r in rl["dieRolls"] if '-' not in eq])
+
             elif (re.match('^-?[0-9]+$',eq)):
-                total = total + int(eq)
-                if('-' in eq):
-                    negNums.append(eq.replace('-',''))
-                else:
-                    posNums.append(eq)
+                total += int(eq)
+                targetList = negNums if '-' in eq else posNums
+                targetList.append(eq.lstrip('-') if '-' in eq else eq)
         for item in posRolls:
             positiveSum = positiveSum + 'D'+str(item[1]) +': '+ str(item[0]) + ' '
         for n in posNums:
@@ -253,7 +244,7 @@ async def process_dice(message, args):
             negativeSum = negativeSum[1:]
 
     else:
-        if len(equation) > 10:
+        if len(equation) > 20:
             error = 'Dice Equation too long'
         else:
             error = 'Invalid dice equation, please try again.'
@@ -261,7 +252,7 @@ async def process_dice(message, args):
         await message.channel.send(error)
         log('{0} raised error: {1} in {2}'.format(str(message.author),error,str(message.guild)))
     else:
-        negatives = '' if len(negativeSum) == 0 else '\n \\- ({0})'.format(negativeSum)
+        negatives = '' if negativeSum == ' ' else '\n \\- ({0})'.format(negativeSum)
         await message.channel.send('your result is {0}\n{1}{2}'.format(total,positiveSum, negatives))
         log("Result: {0}".format(positiveSum))
         

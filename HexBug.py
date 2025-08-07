@@ -165,8 +165,8 @@ async def flip(message, args):
               
 # Process the dice equation            
 async def process_dice(message, args):
-    positiveSum = ''
-    negativeSum = ''
+    positiveSum = ' '
+    negativeSum = ' '
     total = 0
     #ability checks
     if args[-1][0:3].upper() in ["STR","DEX","CON","INT","WIS","CHA"] and args[-1].lower() != "intimidation":
@@ -225,7 +225,10 @@ async def process_dice(message, args):
 
                 else:
                     rl, c, f = roll(int(die[1]))
-                    update_user_Rolls(str(message.author)[-4:], die[0], c, f)
+                    update_user_Rolls(str(message.author)[-4:], 1, c, f)
+                if('-' in eq):
+                    total = total - rl["total"]
+                else:
                     total = total + rl["total"]
                 for r in rl["dieRolls"]:
                     if('-' in eq):

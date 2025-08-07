@@ -1,4 +1,3 @@
-#Written by Ed Chadwick - super OC, do not steal
 import os
 import json
 import discord
@@ -29,8 +28,12 @@ except:
 #define command prefix character
 prefix = "~"
 
+#define which events the bot can recieve
+intents = discord.Intents.default()
+intents.message_content = True 
+
 #define client
-client =  Bot(description='', command_prefix=prefix, pm_help = False)
+client =  Bot(description='', command_prefix=prefix, pm_help = False, intents=intents)
 
 #map commands to function names and whether they're admin-only or not
 command_library = {
@@ -93,7 +96,7 @@ def get_admins():
 
 
 # Good or bad, it's going in the book.
-def update_user_rolls(auth_ID, dice, crits, fails):
+def update_user_Rolls(auth_ID, dice, crits, fails):
     user_file = os.path.join(os.getcwd(), 'UserProfiles', auth_ID, 'UserData.json')
     with open(user_file) as profile:
         user_json = json.load(profile)
@@ -146,7 +149,7 @@ async def list_commands(message, args):
             cmd_list = cmd_list + '~{0} {1}\n'.format(cmd, command_library[cmd][2])
     await message.channel.send(cmd_list)
 
-# WHERE'S RACHEL? 
+# A D2 roll that's not tracked. 
 async def flip(message, args):
     await message.channel.send('flipping a coin...')
     log("Flipping a coin for {0} in {1}".format(str(message.author), str(message.guild)))
@@ -162,7 +165,8 @@ async def flip(message, args):
               
 # Process the dice equation            
 async def process_dice(message, args):
-    rollSummary = ''
+    positiveSum = ''
+    negativeSum = ''
     total = 0
     #ability checks
     if args[-1][0:3].upper() in ["STR","DEX","CON","INT","WIS","CHA"] and args[-1].lower() != "intimidation":
@@ -189,43 +193,61 @@ async def process_dice(message, args):
                 if prof > 0:
                     t_text = f"{t_text} `+{prof}`"
                 t_text = f"{t_text})"
-            update_user_rolls(str(message.author)[-4:], 1, c, f)
+            update_user_Rolls(str(message.author)[-4:], 1, c, f)
             await message.channel.send(f"**{s_json['name'].replace('-', ' ')}** check: {total} {t_text} *{s_json['ability_score']['name']}*")
             return
         else:
             await message.channel.send(f"Failed to fetch ability score for {skill}")
             return
     #dice equations   
-    equation = ' '.join(args[1:]).lower().replace(" ", "").split("+")
-    log("rolling {0} for {1} in {2}".format('+'.join(equation),str(message.author),str(message.guild)))
-    rolls = []
-    nums = []
+    equation = ''.join(args[1:]).lower()
+    log("rolling {0} for {1} in {2}".format(equation,str(message.author),str(message.guild)))
+    posRolls = []
+    posNums = []
+    negRolls = []
+    negNums = []
     error = ''
-    if(re.match('^([0-9]*[dD](4|6|8|10|12|20|100)\+?)+((\+[0-9]+)|(\+[0-9]*[dD](4|6|8|10|12|20|100)\+?))*$','+'.join(equation))) and len(equation) <= 10:
-        for eq in equation:
+    equation_parts = re.findall(r'(-?(?:\d*[dD](?:4|6|8|10|12|20|100)|\d+))', equation)
+    if(re.match(r'^((-?[0-9])*[dD](4|6|8|10|12|20|100)\+?)(([+-][0-9]+)|([+-][0-9]*[dD](4|6|8|10|12|20|100)\+?))*$',equation)) and len(equation) <= 10:
+        for eq in equation_parts:
             if 'd' in eq:
                 die = eq.split('d')
-                if re.match('[0-9]',eq[0]):
+                if re.match('-?[0-9]',die[0]):
                     if int(die[0]) > 20:
                         error = 'Too many dice'
                         break
-                    rl, c, f = roll(int(die[1]),int(die[0]))
-                    update_user_rolls(str(message.author)[-4:], die[0], c, f)
-                    total = total + rl["total"]
+                    rl, c, f = roll(int(die[1]),abs(int(die[0])))
+                    update_user_Rolls(str(message.author)[-4:], die[0], c, f)
+                    if('-' in eq):
+                        total = total - rl["total"]
+                    else:
+                        total = total + rl["total"]
 
                 else:
                     rl, c, f = roll(int(die[1]))
-                    update_user_rolls(str(message.author)[-4:], die[0], c, f)
+                    update_user_Rolls(str(message.author)[-4:], die[0], c, f)
                     total = total + rl["total"]
                 for r in rl["dieRolls"]:
-                    rolls.append(r)
-            elif (re.match('^[0-9]+$',eq)):
+                    if('-' in eq):
+                        negRolls.append(r)
+                    else:
+                        posRolls.append(r)
+            elif (re.match('^-?[0-9]+$',eq)):
                 total = total + int(eq)
-                nums.append(eq)
-        for item in rolls:
-            rollSummary = rollSummary + 'D'+str(item[1]) +': '+ str(item[0]) + ' '
-        for n in nums:
-            rollSummary = rollSummary + '+' + n + ' '
+                if('-' in eq):
+                    negNums.append(eq.replace('-',''))
+                else:
+                    posNums.append(eq)
+        for item in posRolls:
+            positiveSum = positiveSum + 'D'+str(item[1]) +': '+ str(item[0]) + ' '
+        for n in posNums:
+            positiveSum = positiveSum + '+' + n + ' '
+        for item in negRolls:
+            negativeSum = negativeSum + 'D'+str(item[1]) +': '+ str(item[0]) + ' '
+        for n in negNums:
+            negativeSum = negativeSum + '+' + n + ' '
+        if(negativeSum[0] == '+'):
+            negativeSum = negativeSum[1:]
 
     else:
         if len(equation) > 10:
@@ -236,11 +258,12 @@ async def process_dice(message, args):
         await message.channel.send(error)
         log('{0} raised error: {1} in {2}'.format(str(message.author),error,str(message.guild)))
     else:
-        await message.channel.send('your result is {0}\n{1}'.format(total,rollSummary))
-        log("Result: {0}".format(rollSummary))
+        negatives = '' if len(negativeSum) == 0 else '\n \\- ({0})'.format(negativeSum)
+        await message.channel.send('your result is {0}\n{1}{2}'.format(total,positiveSum, negatives))
+        log("Result: {0}".format(positiveSum))
         
         
-        
+# Access information from the user's character sheet to make an ability check roll. Defaults to no bonus if sheet not found.        
 def ability_roll(message, stat, save):
     total = 0
     rl, c, f = roll(20)
@@ -260,7 +283,7 @@ def ability_roll(message, stat, save):
         if prof > 0:
             t_text = f"{t_text} `+{prof}`"
         t_text = f"{t_text})"
-    update_user_rolls(str(message.author)[-4:], 1, c, f)
+    update_user_Rolls(str(message.author)[-4:], 1, c, f)
     return [total, t_text]
 
 async def save_roll(message, args):
@@ -308,24 +331,24 @@ async def spell_lookup(message, args):
         log(f"Error fetching spell {spell_name.replace('-',' ')}: error {request.status_code}")
             
 
-# LUCK! get it? sounds almost exactly like fu-
+# Show the user's occurence rate of crit successes and crit fails
 async def user_luck(message, args):
     file = get_user_file(message)
     if file is not None:
         with open(file) as profile:
             user_json = json.load(profile)
             if 'DiceLuck' not in user_json.keys():
-                await message.channel.send("Sorry, you haven't got any rolls on record yet.")
+                await message.channel.send("Sorry, you haven't got any posRolls on record yet.")
             else:
-                rollData = [user_json['DiceLuck']['TotalRolls'], user_json['DiceLuck']['Crits'], user_json['DiceLuck']['Fails']]
-                rollData.append(round((user_json['DiceLuck']['Crits']/user_json['DiceLuck']['TotalRolls'])*100, 2))
-                rollData.append(round((user_json['DiceLuck']['Fails']/user_json['DiceLuck']['TotalRolls'])*100, 2))
-                await message.channel.send("On record, you've made {0} D20 rolls.\n{1} of those were crit successes, {2} of those were crit fails.\n{3}% crit rate, {4}% crit fail rate.".format(rollData[0], rollData[1], rollData[2], rollData[3], rollData[4]))
+                rollData = [user_json['DiceLuck']['TotalposRolls'], user_json['DiceLuck']['Crits'], user_json['DiceLuck']['Fails']]
+                rollData.append(round((user_json['DiceLuck']['Crits']/user_json['DiceLuck']['TotalposRolls'])*100, 2))
+                rollData.append(round((user_json['DiceLuck']['Fails']/user_json['DiceLuck']['TotalposRolls'])*100, 2))
+                await message.channel.send("On record, you've made {0} D20 posRolls.\n{1} of those were crit successes, {2} of those were crit fails.\n{3}% crit rate, {4}% crit fail rate.".format(rollData[0], rollData[1], rollData[2], rollData[3], rollData[4]))
             
     else:
         await message.channel.send("Profile missing - this is awkward.")
    
-    
+# Fetch condition information from an online API
 async def get_condition(message, args):
     if len(args) < 2:
         request = req.get(f"https://www.dnd5eapi.co/api/conditions/")
@@ -365,9 +388,10 @@ async def affirmation(message, args):
 
 
 
-# what a load of bool sheet
+# Access character sheet commands
 async def handle_sheet(message, args):
     h_json = usr.get_user_json(str(message.author)[-4:])
+    # show sheet if no further args given
     if len(args) == 1:
         print(h_json)
         if 'Character_Sheets' in h_json.keys():

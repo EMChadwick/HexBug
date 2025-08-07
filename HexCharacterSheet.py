@@ -108,7 +108,7 @@ async def set_stat(message, args):
         return('Please select an ability score: STR, DEX, CON, INT, WIS, CHA')
     if len(args) < 4:
         return('Please specify the number')
-    if not re.match('^([1-9]|1\d|20)$', args[3]):
+    if not re.match(r'^([1-9]|1\d|20)$', args[3]):
         return('valid range is 1-20')
     u_profile["Character_Sheets"][u_profile["Selected_sheet"]]["Ability_Scores"][args[2][0:3].upper()] = int(args[3])
     usr.write_data(str(message.author)[-4:], u_profile)

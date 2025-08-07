@@ -231,15 +231,19 @@ async def process_dice(message, args):
             elif (re.match('^-?[0-9]+$',eq)):
                 total += int(eq)
                 targetList = negNums if '-' in eq else posNums
+
                 targetList.append(eq.lstrip('-') if '-' in eq else eq)
-        for item in posRolls:
-            positiveSum = positiveSum + 'D'+str(item[1]) +': '+ str(item[0]) + ' '
-        for n in posNums:
-            positiveSum = positiveSum + '+' + n + ' '
-        for item in negRolls:
-            negativeSum = negativeSum + 'D'+str(item[1]) +': '+ str(item[0]) + ' '
-        for n in negNums:
-            negativeSum = negativeSum + '+' + n + ' '
+        # stitch together the positive and negative reports
+        pos_roll_parts = [f"D{item[1]}: {item[0]}" for item in posRolls]
+        pos_num_parts = [f"+{n}" for n in posNums]
+
+        neg_roll_parts = [f"D{item[1]}: {item[0]}" for item in negRolls]
+        neg_num_parts = [f"+{n}" for n in negNums]
+
+        # Join the parts together
+        positiveSum = " ".join(pos_roll_parts + pos_num_parts)
+        negativeSum = " ".join(neg_roll_parts + neg_num_parts)
+
         if(negativeSum[0] == '+'):
             negativeSum = negativeSum[1:]
 
